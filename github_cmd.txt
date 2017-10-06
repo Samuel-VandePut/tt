@@ -1,0 +1,7 @@
+go to C:/wamp/www/tt
+Get clone = git clone https://github.com/saM21785/tt.git
+Get clone = git pull
+Get status = git status
+Add file = git add xxx.html
+Commit = git commit -m 'ajout xxx.html'
+Final = git push
