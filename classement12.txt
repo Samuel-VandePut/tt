@@ -1,0 +1,315 @@
+<?php
+/*$array = array(
+    "NC" => 0,
+    "A0" => 1,
+    "A2"   => 2,
+    "A4" => 3,
+    "A6" => 4,
+    "B0" => 5,
+    "B2"   => 6,
+    "B4" => 7,
+    "B6" => 8,
+    "C0" => 10,
+    "C2"   =>11,
+    "C4" => 12,
+    "C6" => 13,
+    "D0" => 14,
+    "D2"   =>15,
+    "D4" => 16,
+    "D6" => 17,
+    "E0" => 18,
+    "E2"   =>19,
+    "E4" => 20,
+    "E6" => 21
+    
+);
+*/
+//var_dump($array);
+
+//var_dump("D0",$array[ "D0"]);
+
+
+//Tableau avec les joueurs 
+$array1 = array( "NC", "A0","A2","A4","A6", "B0", "B2", "B4", "B6" ,"C0", "C2", "C4", "C6","D0","D2","D4", "D6" ,"E0", "E2","E4","E6");
+
+
+//Fonction qui premet la  position du joueur
+function calcule_nbre_class(&$tab, $joueur, $adversaire)
+{
+	   $posjou=0;
+	   $posadv=0;
+      
+	   for($i=0;$i < count($tab) ;$i++) 
+	   { 
+
+	        if( $tab[$i] == $joueur) {
+
+	            $posjou=$i;
+
+	            //echo'Position du joueur dans le tableau'+$posjou;
+
+	        }elseif ($tab[$i] == $adversaire) {
+
+	            $posadv=$i;
+
+	            //echo'Position de l\' adversaire dans le tableau'+$posadv;
+
+	  
+	        }
+
+	     }
+
+	    return   $posjou - $posadv;
+}
+
+
+
+//-----------------------------------------------------------
+//Appel  de la fonction  f1
+
+$nbre=calcule_nbre_class($array1,'B2','B0');
+//-----------------------------------------------------------
+
+
+//Fonction qui premet de voir,si  le classement est possible 
+function calcule_possibilté_class($resultat,$joueur ,&$tab1)
+{
+
+      if (($resultat <= -3) or ($resultat >= 3))
+      {
+           echo"Classement impossible  <br>";
+           echo $resultat;
+      }
+      else
+      {
+           echo"Classement possible <br>";
+           echo $resultat."<br>";
+
+           return array_search($joueur,$tab1);
+
+      }
+
+}
+
+
+//-----------------------------------------------------------
+//Appel  de la fonction  f2
+
+ $pos=calcule_possibilté_class($nbre,'B2',$array1);
+//-----------------------------------------------------------
+
+
+//-----------------------------------------------------------
+//Affichage  de la position du  joueur et  creaction Joueur A
+
+ echo'<br> position du joueur'.$pos.'<br>';
+
+$joueur_A=array("joueur A",'','','jA','','');
+//-----------------------------------------------------------
+
+
+//Fonction qui ajoute  le  joueur dans le tableau A
+function tab_jou_A($joueur ,&$tab1)
+{
+
+      
+    for ($i=1; $i<count($tab1); $i++) {
+        if ($tab1[$i] == 'jA') {
+            $tab1[$i]=$joueur;
+        }else{
+            
+            $tab1[$i]='0';
+
+        }
+    }
+    
+
+
+   return  $tab1;
+
+}
+
+//-----------------------------------------------------------
+//Appel  de la fonction  f3 et Affichage du tableau A
+
+$jl=tab_jou_A('B2',$joueur_A);
+
+
+foreach ($jl as $value) {
+
+      echo '['.$value.']';
+ }
+   
+//-------------------------------------------------------------
+
+    // $joueur_A=array("joueur A",0,0,0,0,0);
+  $joueur_B=array("joueur B",0,0,'JA',0,0);
+
+   //$debut=$pos;
+
+   //var_dump($debut);
+
+   $output = array_slice($array1 ,2, $pos);
+
+
+   var_dump(  $output);
+
+
+/*function tab_jou_B($joueur ,&$tab1)
+{
+
+      
+    for ($i=1; $i<count($tab1); $i++) {
+        if ($tab1[$i] == 'jA') {
+            $tab1[$i]=$joueur;
+        }else{
+            
+            $tab1[$i]=0;
+
+        }
+    }
+    
+
+
+   return  $tab1;
+
+}*/
+
+
+/*$jl=tab_jou_A('B2',$joueur_A);
+
+
+foreach ($jl as $value) {
+
+      echo '['.$value.']';
+ }*/
+
+
+
+//-----------------------------------------------------------
+// Tableau  victoire  et Defaite 
+
+     $victoire=array("Victoire ",+1,+2,+3,+4,+5);
+     $defaite=array("Defaite ",-5,-4,-3,-2,-1);
+
+//-----------------------------------------------------------  
+   
+   //$joueur_A=array("joueur A",0,0,'A0',0,0);
+   /*foreach ($joueur_A as $value) {
+
+      echo '['.$value.']';
+   }*/
+   
+   /*echo '</br>';
+
+   foreach ($joueur_B as $value) {
+
+      echo '['.$value.']';
+   }*/
+    echo '</br>';
+
+   foreach ($victoire as $value) {
+
+      echo '['.$value.']';
+   }
+    echo '</br>';
+
+   foreach ($defaite as $value) {
+
+      echo '['.$value.']';
+   }
+
+
+
+
+/*$arr = array("un", "deux", "trois");
+reset($arr);
+while (list(, $value) = each($arr)) {
+    echo "Valeur : $value<br />\n";
+}
+
+foreach ($arr as $value) {
+    echo "Valeur : $value<br />\n";
+}*/
+
+
+
+
+
+/*function position_joueur(&$tab1, $joueur)
+{
+
+   return array_search($joueur, $tab1);
+
+}*/
+
+
+// echo '<br> pos joueur'.position_joueur($array1,'C6');
+
+
+
+/*$classement=array(
+   
+     $joueur_A=array("joueur A",0,0,$joueur[21],0,0),
+     $joueur_B=array("joueur B",0,0,$joueur,0,0),
+     $victoire=array("Victoire",+1,+2,+3,+4,+5),
+     $defaite=array("Defaite",-5,-4,-3,-2,-1)
+);*/
+
+
+
+    /*joueur_A[]=array("joueur A",0,0,'A0',0,0);
+     $joueur_B[]=array("joueur B",0,0,'A0',0,0);
+     $victoire[]=array("Victoire",+1,+2,+3,+4,+5);
+     $defaite[]=array("Defaite",-5,-4,-3,-2,-1);*/
+
+
+
+  /* foreach ($tablo as $cle=>$sousTablo) {
+      echo $cle.'<br />';
+      foreach ($sousTablo as $sousCle=>$valeur) {
+      echo '--> '.$sousCle.' : '.$valeur.'<br />';
+
+         foreach ($tablo as $cle=>$sousTablo) {
+         echo $cle.'<br />';
+            foreach ($sousTablo as $sousCle=>$valeur) {
+              echo '--> '.$sousCle.' : '.$valeur.'<br />';
+             }
+         }
+      }
+  }*/
+
+
+
+/*$tablo[] = array(1,"rouge","voiture");
+$tablo[] = array(3,"vert","toupie"); 
+
+foreach ($tablo as $cle=>$sousTablo) {
+   echo $cle.'<br />';
+   foreach ($sousTablo as $sousCle=>$valeur) {
+      echo '--> '.$sousCle.' : '.$valeur.'<br />';
+   }
+}*/
+
+
+
+/*ersonnes = array(
+1 => array('prenom' => 'Jessy', 'nom' => 'Brown', 'telephone' => '00001111'),
+2 => array('prenom' => 'Sharon', 'nom' => 'Dain', 'telephone' => '00221111'),
+3 => array('prenom' => 'Marta', 'nom' => 'Blanca', 'telephone' => '003311111')
+);
+
+foreach($personnes as $cle1 => $valeur1)
+{
+  echo "personne n°:" . $cle1 . "<br />";
+
+    foreach ($valeur1 as $cle2=>$valeur2)
+
+    {
+      echo "Clé : ".$cle2 .", Valeur: " . $valeur2 . "<br />\n";
+    }
+}*/
+
+
+
+?>

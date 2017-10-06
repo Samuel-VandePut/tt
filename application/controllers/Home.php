@@ -49,7 +49,7 @@ class Home extends CI_Controller {
               );
         }
         //Charger la page
-        $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/index.php')->views('admin/includes/footer.inc.php')->view('admin/includes/closing.inc.php'); 
+        $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php')->view('includes/footer.inc.php');
       }
       else
       {      
