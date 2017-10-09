@@ -35,6 +35,7 @@ class Joueur extends CI_Controller {
       $this->load->helper('url');
 
       $list = $this->joueur->get_datatables();
+      //var_dump($list);
       $data = array();
       $no = $_POST['start'];
       foreach ($list as $joueur) {
@@ -44,6 +45,7 @@ class Joueur extends CI_Controller {
           $row[] = $joueur->nom;
           $row[] = $joueur->prenom;
           $row[] = $joueur->classement;
+          $row[] = $joueur->FK_pool;
 
           if($joueur->disponibilite) $row[] = '<input type="checkbox" name="dispo'.$joueur->id_joueur.'" onclick="uncheck('.$joueur->id_joueur.')" checked>';
           else $row[] = '<input type="checkbox" name="dispo'.$joueur->id_joueur.'" onclick="check('.$joueur->id_joueur.')">';

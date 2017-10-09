@@ -14,6 +14,7 @@ class joueur_model extends CI_Model{
 
   private function _get_datatables_query()
   {
+      //$this->db->select('id_joueur','nom','prenom','classement','FK_pool as pool','disponibilite');
       $this->db->from($this->table);
       $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
       

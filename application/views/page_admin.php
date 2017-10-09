@@ -25,6 +25,7 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Classement</th>
+                    <th>Pool</th>
                     <th>Disponibilite</th>
                 </tr>
               </thead>
@@ -37,10 +38,12 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Classement</th>
+                    <th>Pool</th>
                     <th>Disponibilite</th>
                 </tr>
               </tfoot>
           </table>
+          <button class="btn btn-default" onclick="generate_teams()"><i class="glyphicon glyphicon-check"></i> Générer les équipes</button>
       </div>
       <!-- /.container-fluid -->
 
