@@ -45,11 +45,20 @@ class Home extends CI_Controller {
          //Initier $_SESSION
          $_SESSION['connect'] = array(
               'Nom' => $user->nom,
-              'Prenom'  => $user->prenom
+              'Prenom'  => $user->prenom,
+              'Niveau'  => $user->niveau
               );
         }
-        //Charger la page
-        $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php')->view('includes/footer.inc.php');
+
+        switch($_SESSION['connect']['Niveau'])
+        {
+          case 1: //show player page
+          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php')->view('includes/footer.inc.php');
+          break;
+          case 5: //show club admin page
+          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_admin.php')->views('includes/footer.inc.php')->view('page_admin_ajax.php');
+          break;
+        }
       }
       else
       {      
@@ -59,22 +68,6 @@ class Home extends CI_Controller {
     }
   }
 
-
-  function page_perso(){
-    session_start();
-
-    if($_SESSION['connect']['Prof'] == 0){
-
-       $this->layout->views('includes/header.inc.php')->views('includes/navbar_user.inc.php')->views('page_perso')->view('includes/footer.inc.php');
-
-    }elseif ($_SESSION['connect']['Prof'] == 1) {
-
-        $membre['liste']=$this->users->list_of_members();
-        $this->layout->views('includes/header.inc.php')->views('includes/navbar_user.inc.php')->views('page_admin',$membre)->view('includes/footer.inc.php');
-    }
-
-  }
-  
   function Logout(){
 
       $this->load->library('session');

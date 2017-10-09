@@ -14,9 +14,6 @@
     <link href="<?php echo base_url();?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/blog-home.css" rel="stylesheet">
-
   </head>
 
   <body>

@@ -14,10 +14,17 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo base_url();?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- Plugin JavaScript -->
+    <script src="<?php echo base_url();?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="<?php echo base_url();?>assets/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="<?php echo base_url('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+
+
     <script type="text/javascript">
 
     var base_url = '<?php echo base_url();?>';
-
 
     function login()//load Home/login/parameter1/parameter2
     {
