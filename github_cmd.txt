@@ -1,4 +1,15 @@
 go to C:/wamp/www/tt
+git init 	// Initialize local repository
+git add <file>  // Add files
+git status 	// Check Status off working tree
+git commit	// Commit changes in index
+git push	// Push to remote repository
+git pull	// Pull latest version from remote repository
+git clone	// Clone repository into a new repository
+
+git config --global user.name 'name'
+git config --global user.email 'email'
+
 Get clone = git clone https://github.com/saM21785/tt.git
 //Get clone = git pull
 Get status = git status
