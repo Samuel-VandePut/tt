@@ -103,7 +103,11 @@ class joueur_model extends CI_Model{
 
   public function get_joueurs_dispo()
   {
-      //$this->db->
+      $this->db->from($this->table);
+      $this->db->where('disponibilite', 1);
+      $query = $this->db->get();
+
+      return $query->row();
   }
 
 }
