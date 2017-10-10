@@ -199,5 +199,11 @@ class Joueur extends CI_Controller {
       echo json_encode(array("status" => TRUE, "joueurs" => $joueurs));
   }
 
+  public function ajax_generate_teams()
+  {
+      $joueurs = $this->joueur->get_joueurs_dispo();
+      
+  }
+
 
 }

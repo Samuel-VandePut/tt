@@ -72,7 +72,20 @@ function reload_table()
 
 function generate_teams()
 {
-    var table = $('#example').DataTable();
+    //var table = $('#example').DataTable();
+    $.ajax({
+        url : "<?php echo site_url('joueur/ajax_generate_teams')?>",
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
     
 }
  

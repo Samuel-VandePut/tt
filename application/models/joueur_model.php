@@ -101,6 +101,11 @@ class joueur_model extends CI_Model{
       $this->db->delete($this->table);
   }
 
+  public function get_joueurs_dispo()
+  {
+      //$this->db->
+  }
+
 }
 
 ?>
