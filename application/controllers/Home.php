@@ -76,7 +76,8 @@ class Home extends CI_Controller {
       redirect('/home/', 'refresh');
   }
 
-  public function password_check($old_password){
+  public function password_check($old_password)
+  {
 
       //Récupérer le password utilisateur avec variable SESSION
       $user = $this->users->get_password($_SESSION['connect']['Nom'],$_SESSION['connect']['Prenom']);
@@ -91,7 +92,14 @@ class Home extends CI_Controller {
       }
   }
 
+  public function readExcel()
+  {
+          $this->load->library('csvreader');
+          $result =   $this->csvreader->parse_file('Test.csv');
 
+          $data['csvData'] =  $result;
+          $this->load->view('view_csv', $data);  
+  }
 
 
 }
