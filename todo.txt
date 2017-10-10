@@ -1,0 +1,8 @@
+-> Ajouter des matchs via fichier csv
+-> renvoyer une erreur à l'utilisateur lorsqu'il n'y a pas de connection
+
+
+
+-> Créer page utilisateur (niveau 1)
+	-> Afficher la liste des matchs joués de l'utilisateur
+	-> Créer une fonction calculer le classement virtuel
