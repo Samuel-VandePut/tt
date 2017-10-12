@@ -1,11 +1,11 @@
 <?php
 
-class joueur_model extends CI_Model{
+class interclub_model extends CI_Model{
 
-  var $table = 'joueurs';
-  var $column_order = array('classement','disponibilite','bannir','FK_personne','FK_pool'); //set column field database for datatable orderable
-  var $column_search = array('classement','disponibilite','FK_pool'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-  var $order = array('id_joueur' => 'desc'); // default order 
+  var $table = 'interclub';
+  var $column_order = array('date'); //set column field database for datatable orderable
+  var $column_search = array('date'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+  var $order = array('id_interclub' => 'desc'); // default order 
  
 
   function __construct() {
@@ -14,9 +14,7 @@ class joueur_model extends CI_Model{
 
   private function _get_datatables_query()
   {
-      //$this->db->select('id_joueur','nom','prenom','classement','FK_pool as pool','disponibilite');
       $this->db->from($this->table);
-      $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
       
       $i = 0;
    
@@ -77,18 +75,26 @@ class joueur_model extends CI_Model{
   public function get_by_id($id)
   {
       $this->db->from($this->table);
-      $this->db->where('id_joueur',$id);
+      $this->db->where('id_interclub',$id);
       $query = $this->db->get();
 
       return $query->row();
   }
 
-  public function get_by_name($nom,$prenom)
+  public function get_by_date($date)
   {
       $this->db->from($this->table);
-      $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
-      $this->db->where('nom',$nom);
-      $this->db->where('prenom',$prenom);
+      $this->db->where('date',$date);
+      $query = $this->db->get();
+
+      //var_dump($this->db->last_query());die();
+      return $query->row();
+  }
+
+  public function get_id($id)
+  {
+      $this->db->from($this->table);
+      $this->db->where('id_joueur',$id);
       $query = $this->db->get();
 
       return $query->row();

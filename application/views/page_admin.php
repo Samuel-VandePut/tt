@@ -16,6 +16,20 @@
           <h3>Liste des joueurs</h3>
           <br />
           <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>
+            <div class="container-fluid">
+              <form action="#" id="form-upload" class="form-horizontal">
+                <div class="form-group">
+                    <h2 class="control-label col-md-8">Ajouter des matchs</h2>
+                    <div class="col-md-8">
+                        <input name="fichierCSV" type="file">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" id="btnUpload" onclick="upload()" class="btn btn-primary">Télécharger</button>
+                </div>
+              </form>
+            </div>
           <br />
           <br />
           <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">

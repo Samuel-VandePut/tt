@@ -1,10 +1,10 @@
 <?php
 
-class joueur_model extends CI_Model{
+class match_model extends CI_Model{
 
-  var $table = 'joueurs';
-  var $column_order = array('classement','disponibilite','bannir','FK_personne','FK_pool'); //set column field database for datatable orderable
-  var $column_search = array('classement','disponibilite','FK_pool'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+  var $table = 'match';
+  var $column_order = array('FK_rencontre','victoire','defaite'); //set column field database for datatable orderable
+  var $column_search = array('FK_rencontre'); //set column field database for datatable searchable just firstname , lastname , address are searchable
   var $order = array('id_joueur' => 'desc'); // default order 
  
 
@@ -16,7 +16,9 @@ class joueur_model extends CI_Model{
   {
       //$this->db->select('id_joueur','nom','prenom','classement','FK_pool as pool','disponibilite');
       $this->db->from($this->table);
-      $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
+      $this->db->join('rencontre','match.FK_rencontre = rencontre.id_rencontre','left');
+      $this->db->join('rencontre','match.FK_rencontre = rencontre.id_rencontre','left');
+      $this->db->join('rencontre','match.FK_rencontre = rencontre.id_rencontre','left');
       
       $i = 0;
    
@@ -78,17 +80,6 @@ class joueur_model extends CI_Model{
   {
       $this->db->from($this->table);
       $this->db->where('id_joueur',$id);
-      $query = $this->db->get();
-
-      return $query->row();
-  }
-
-  public function get_by_name($nom,$prenom)
-  {
-      $this->db->from($this->table);
-      $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
-      $this->db->where('nom',$nom);
-      $this->db->where('prenom',$prenom);
       $query = $this->db->get();
 
       return $query->row();

@@ -46,7 +46,6 @@ function check(id)
         }
     });
 }
-
  
 function uncheck(id)
 {
@@ -92,6 +91,49 @@ function generate_teams()
 function hide()
 {
     $('#modal_form').modal('hide');
+}
+
+
+function upload()
+{
+    $('#btnUpload').text('en cours...'); //change button text
+    $('#btnUpload').attr('disabled',true); //set button disable 
+
+    var formData = new FormData($('#form-upload')[0]);
+    $.ajax({
+        url : "<?php echo site_url('Home/ajax_upload')?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
+ 
+            if(data.status) //if success close modal and reload ajax table
+            {
+                //Ajouter l'image
+                $('#gallery').append('<div class="col-md-4"><img name="'+data.id+'" src="'+base_url+'assets/img/projets/'+data.name+'" class="img-responsive"><input onclick="delete_image('+data.id+')" type="button" name="remove_photo" value="Delete"/></div>');
+            }
+            else
+            {
+                for (var i = 0; i < data.inputerror.length; i++) 
+                {
+                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                }
+            }
+            $('#btnUpload').text('Ajouter image'); //change button text
+            $('#btnUpload').attr('disabled',false); //set button enable 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#btnUpload').text('Ajouter image'); //change button text
+            $('#btnUpload').attr('disabled',false); //set button enable 
+ 
+        }
+    });
 }
 
 </script>

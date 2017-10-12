@@ -1,11 +1,11 @@
 <?php
 
-class joueur_model extends CI_Model{
+class rencontre_model extends CI_Model{
 
-  var $table = 'joueurs';
-  var $column_order = array('classement','disponibilite','bannir','FK_personne','FK_pool'); //set column field database for datatable orderable
-  var $column_search = array('classement','disponibilite','FK_pool'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-  var $order = array('id_joueur' => 'desc'); // default order 
+  var $table = 'rencontre';
+  var $column_order = array('FK_joueur','FK_interclub','FK_equipe'); //set column field database for datatable orderable
+  var $column_search = array('FK_interclub'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+  var $order = array('id_renconte' => 'desc'); // default order 
  
 
   function __construct() {
@@ -16,7 +16,6 @@ class joueur_model extends CI_Model{
   {
       //$this->db->select('id_joueur','nom','prenom','classement','FK_pool as pool','disponibilite');
       $this->db->from($this->table);
-      $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
       
       $i = 0;
    
@@ -83,12 +82,11 @@ class joueur_model extends CI_Model{
       return $query->row();
   }
 
-  public function get_by_name($nom,$prenom)
+  public function get_by_joueur_interclub($id_joueur,$id_interclub)
   {
       $this->db->from($this->table);
-      $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
-      $this->db->where('nom',$nom);
-      $this->db->where('prenom',$prenom);
+      $this->db->where('FK_joueur',$id_joueur);
+      $this->db->where('FK_interclub',$id_interclub);
       $query = $this->db->get();
 
       return $query->row();
@@ -110,15 +108,6 @@ class joueur_model extends CI_Model{
   {
       $this->db->where('id_joueur', $id);
       $this->db->delete($this->table);
-  }
-
-  public function get_joueurs_dispo()
-  {
-      $this->db->from($this->table);
-      $this->db->where('disponibilite', 1);
-      $query = $this->db->get();
-
-      return $query->row();
   }
 
 }

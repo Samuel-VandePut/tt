@@ -78,7 +78,6 @@ class Home extends CI_Controller {
 
   public function password_check($old_password)
   {
-
       //Récupérer le password utilisateur avec variable SESSION
       $user = $this->users->get_password($_SESSION['connect']['Nom'],$_SESSION['connect']['Prenom']);
 
@@ -92,13 +91,82 @@ class Home extends CI_Controller {
       }
   }
 
-  public function readExcel()
+  public function ajax_upload()
+  {
+      if(!empty($_FILES['fichierCSV']['name']))
+      {
+        if(file_exists('assets/files/'.$_FILES['fichierCSV']['name']))
+        {
+          $data['file'] = 'Le nom du fichier existe déjà';
+        }
+        else
+        {
+          $upload = $this->_do_upload();
+          $data['photo'] = $upload;
+        }
+      }//else gérer l'erreur
+      else
+      {
+        $data['file'] = 'Veuillez sélectionner un fichier svp';
+      }
+      //Lire le fichier csv
+      $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
+      
+      foreach($csvData as $match)
+      {
+        //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
+        $this->load->model('joueur_model','joueur');
+        $joueur = $this->joueur->get_by_name($match['nom'],$match['prenom']);
+        //récupérer id_interclub si il existe, sinon créer l'interclub
+        $this->load->model('interclub_model','interclub');
+        $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match['date'])));
+        //if($interclub == null) $interclub = $this->interclub->save(array('date' => $match['date']));
+        
+        $this->load->model('rencontre_model','rencontre');
+        $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
+
+        $data = array(
+                'FK_rencontre' => $rencontre->id_rencontre,
+                'victoire' => $match['victoire'],
+                'defaite' => $match['defaite']
+            );
+
+        //ajouter les matchs
+        $this->load->model('match_model','match');
+        $this->match->save($data);  
+      }
+      echo json_encode(array("status" => TRUE,'name' => $_FILES['fichierCSV']['name']));
+  }
+
+  private function _do_upload()
+  {
+      $config['upload_path']          = 'assets/files';
+      $config['allowed_types']        = 'csv|xls|txt';
+      $config['max_size']             = 500; //set max size allowed in Kilobyte
+      $config['max_width']            = 1000; // set max width image allowed
+      $config['max_height']           = 1000; // set max height allowed
+      //$config['file_name']            = round(microtime(true) * 1000); //just milisecond timestamp fot unique name
+
+      $this->load->library('upload', $config);
+
+      if(!$this->upload->do_upload('fichierCSV')) //upload and validate
+      {
+          $data['inputerror'][] = 'fichierCSV';
+          $data['error_string'][] = 'Upload error: '.$this->upload->display_errors('',''); //show ajax error
+          $data['status'] = FALSE;
+          echo json_encode($data);
+          exit();
+      }
+      return $this->upload->data('file_name');
+  }
+
+  public function readExcel($path)
   {
           $this->load->library('csvreader');
-          $result =   $this->csvreader->parse_file('Test.csv');
-
-          $data['csvData'] =  $result;
-          $this->load->view('view_csv', $data);  
+          $result = $this->csvreader->parse_file($path);
+          return $result;
+          //$data['csvData'] =  $result;
+          //$this->load->view('view_csv', $data);  
   }
 
 

@@ -202,8 +202,10 @@ class Joueur extends CI_Controller {
   public function ajax_generate_teams()
   {
       $joueurs = $this->joueur->get_joueurs_dispo();
-      
+      //foreach()
   }
+
+  
 
 
 }
