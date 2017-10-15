@@ -24,7 +24,6 @@
                       <tbody>
                   
           <?php
-              var_dump($joueur);die();
               if(count($joueur) > 0 ){
                     foreach ($joueur as $row)
                     {

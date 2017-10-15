@@ -130,7 +130,7 @@ class joueur_model extends CI_Model{
     $this->db->join('match', 'rencontre.id_rencontre = match.FK_rencontre');
     $this->db->where('joueurs.id_joueur',$id_joueur);
     $query = $this->db->get();
-    var_dump($this->db->last_query());die(); 
+    //var_dump($this->db->last_query());die(); 
     
     return $query->row();
         

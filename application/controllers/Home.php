@@ -56,7 +56,7 @@ class Home extends CI_Controller {
           case 1: //show player page
 
           $this->load->model('joueur_model');  
-           $joueur['recup']=$this->joueur_model->get_joueurs_info($_SESSION['connect']['Id_jou']);
+          $joueur['recup']=$this->joueur_model->get_joueurs_info($_SESSION['connect']['Id_jou']);
 
           $data=array();
           $data['joueur']=$joueur['recup'];
