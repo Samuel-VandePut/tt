@@ -121,6 +121,26 @@ class joueur_model extends CI_Model{
       return $query->row();
   }
 
+
+  public function get_joueurs_info($id_joueur)
+  {
+        $this->db->select('*');    
+    $this->db->from('joueurs');
+    $this->db->join('rencontre', 'joueurs.id_joueur= rencontre.FK_joueur');
+    $this->db->join('match', 'rencontre.id_rencontre = match.FK_rencontre');
+    $this->db->where('joueurs.id_joueur',$id_joueur);
+    $query = $this->db->get();
+    
+        //return $query->result();
+        
+        if (count($query) > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        } 
+  }
+  
 }
 
 ?>

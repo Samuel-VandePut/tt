@@ -281,6 +281,7 @@ public function login($mail, $password){
 
    $this->db->select('*');
    $this->db->from('personnes');
+   $this->db->join('joueurs', 'personnes.id_personne=joueurs.FK_personne');
    $this->db->where('email',$email);
    $this->db->where('password',sha1($pwd));
    //$this->db->where('banned',0);

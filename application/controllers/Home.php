@@ -46,14 +46,24 @@ class Home extends CI_Controller {
          $_SESSION['connect'] = array(
               'Nom' => $user->nom,
               'Prenom'  => $user->prenom,
-              'Niveau'  => $user->niveau
+              'Niveau'  => $user->niveau,
+              'Id_jou'  => $user->id_joueur
               );
         }
 
         switch($_SESSION['connect']['Niveau'])
         {
           case 1: //show player page
-          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php')->view('includes/footer.inc.php');
+
+          $this->load->model('joueur_model');  
+           $joueur['recup']=$this->joueur_model->get_joueurs_info($_SESSION['connect']['Id_jou']);
+
+          $data=array();
+          $data['recu']=$joueur['recup'];
+          $data['nom']=$_SESSION['connect']['Nom'];
+          $data['prenom']=$_SESSION['connect']['Prenom'];
+
+          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php',$data)->view('includes/footer.inc.php');
           break;
           case 5: //show club admin page
           $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_admin.php')->views('includes/footer.inc.php')->view('page_admin_ajax.php');
