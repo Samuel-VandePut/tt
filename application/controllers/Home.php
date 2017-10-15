@@ -59,7 +59,7 @@ class Home extends CI_Controller {
            $joueur['recup']=$this->joueur_model->get_joueurs_info($_SESSION['connect']['Id_jou']);
 
           $data=array();
-          $data['recu']=$joueur['recup'];
+          $data['joueur']=$joueur['recup'];
           $data['nom']=$_SESSION['connect']['Nom'];
           $data['prenom']=$_SESSION['connect']['Prenom'];
 

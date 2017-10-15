@@ -24,9 +24,9 @@
                       <tbody>
                   
           <?php
-
-              if(count($recu) > 0 ){
-                    foreach ($recu as $row)
+              var_dump($joueur);die();
+              if(count($joueur) > 0 ){
+                    foreach ($joueur as $row)
                     {
                     
                           echo'<tr>
