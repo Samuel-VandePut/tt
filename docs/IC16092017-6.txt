@@ -1,0 +1,17 @@
+date,nom,prenom,victoire,defaite
+2017/09/16,Jonathan,Cuisenaire,E0,
+2017/09/16,Jonathan,Cuisenaire,,D6
+2017/09/16,Jonathan,Cuisenaire,E4,
+2017/09/16,Jonathan,Cuisenaire,E2,
+2017/09/16,Van de Put,Samuel,E0,
+2017/09/16,Van de Put,Samuel,,D6
+2017/09/16,Van de Put,Samuel,E4,
+2017/09/16,Van de Put,Samuel,E2,
+2017/09/16,Masclet,Laurence,E0,
+2017/09/16,Masclet,Laurence,D6,
+2017/09/16,Masclet,Laurence,E4,
+2017/09/16,Masclet,Laurence,,E2
+2017/09/16,LHaij,Samir,E0,
+2017/09/16,LHaij,Samir,D6,
+2017/09/16,LHaij,Samir,E4,
+2017/09/16,LHaij,Samir,E2,

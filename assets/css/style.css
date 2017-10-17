@@ -13,3 +13,28 @@ body {
         padding-top: 56px;
     }
 }
+
+.clear-fix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#poola {
+	float:left;
+}
+
+
+#poolb {
+	float:right;
+}
+
+
+.float-left {
+	float:left;
+}
+
+
+.float-right {
+	float:right;
+}

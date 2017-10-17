@@ -1,0 +1,17 @@
+date,nom,prenom,victoire,defaite
+2017/09/16,Lavis,Antoine,B2,
+2017/09/16,Lavis,Antoine,B6,
+2017/09/16,Lavis,Antoine,C0,
+2017/09/16,Lavis,Antoine,C2,
+2017/09/16,Harray,Eric,,B2
+2017/09/16,Harray,Eric,B6,
+2017/09/16,Harray,Eric,C0,
+2017/09/16,Harray,Eric,C2,
+2017/09/16,Fayt,Romain,,B2
+2017/09/16,Fayt,Romain,,B6
+2017/09/16,Fayt,Romain,C0,
+2017/09/16,Fayt,Romain,C2,
+2017/09/16,Blaise,Geoffrey,B2,
+2017/09/16,Blaise,Geoffrey,B6,
+2017/09/16,Blaise,Geoffrey,,C0
+2017/09/16,Blaise,Geoffrey,C2,

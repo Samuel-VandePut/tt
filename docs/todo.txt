@@ -5,6 +5,9 @@ Samuel
 -> Ajouter des matchs via fichier csv
 -> Générer les equipes 
 -> renvoyer une erreur à l'utilisateur lorsqu'il n'y a pas de connection. Ex : lors de la modification des disponibilités
+-> Lors de l'upload : 
+	- Ecraser le fichier si il existe déjà.  Demander confirmation
+-> DB : - possible d'ajouter les même matchs plusieurs fois
 
 
 ----------

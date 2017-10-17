@@ -12,27 +12,23 @@
           <li class="breadcrumb-item active">Tennis de table</li>
         </ol>
 
-   
-          <h3>Liste des joueurs</h3>
-          <br />
-          <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>
-            <div class="container-fluid">
-              <form action="#" id="form-upload" class="form-horizontal">
-                <div class="form-group">
-                    <h2 class="control-label col-md-8">Ajouter des matchs</h2>
-                    <div class="col-md-8">
-                        <input name="fichierCSV" type="file">
-                        <span class="help-block"></span>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                  <button type="button" id="btnUpload" onclick="upload()" class="btn btn-primary">Télécharger</button>
-                </div>
-              </form>
+          <!-- Pools Tables -->
+          <div class="clear-fix container-fluid">
+          <div class="col-md-12">
+            <h2>Liste des joueurs</h3>
+            <br />
+          </div>
+          <div id="poola" class="col-md-6 col-xs-6">
+          <div class="clear-fix">
+            <div class="float-left col-md-6"> 
+              <h2>Division 3</h2>
             </div>
-          <br />
-          <br />
-          <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <div class="float-right clear-fix col-md-6">
+              <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>  
+            </div>
+          </div>
+          <br>
+            <table id="table_pool_3" class="table table-striped table-bordered" cellspacing="0" width="100%">
               <thead>
                 <tr>
                     <th>N°</th>
@@ -56,8 +52,55 @@
                     <th>Disponibilite</th>
                 </tr>
               </tfoot>
-          </table>
-          <button class="btn btn-default" onclick="generate_teams()"><i class="glyphicon glyphicon-check"></i> Générer les équipes</button>
+            </table>
+            <br>
+            <div class="col-md-6">
+              <button class="btn btn-default" onclick="generate_team_3()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+            </div>
+          </div>
+          <div id="poolb" class="col-md-6 col-xs-6">
+            <div class="clear-fix">
+              <div class="float-left col-md-6"> 
+                <h2>Division 4</h2>
+              </div>
+              <div class="float-right clear-fix col-md-6">
+                <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>  
+              </div>
+            </div>
+            <br>
+            <table id="table_pool_4" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Classement</th>
+                    <th>Pool</th>
+                    <th>Disponibilite</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+   
+              <tfoot>
+                <tr>
+                    <th>N°</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Classement</th>
+                    <th>Pool</th>
+                    <th>Disponibilite</th>
+                </tr>
+              </tfoot>
+            </table>
+            <br>
+            <div class="col-md-6">
+              <button class="btn btn-default" onclick="generate_team_4()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+            </div>
+          </div>  
+          </div>
+          
+
       </div>
       <!-- /.container-fluid -->
 

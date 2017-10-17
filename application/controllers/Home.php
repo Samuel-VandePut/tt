@@ -66,7 +66,7 @@ class Home extends CI_Controller {
           $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php',$data)->view('includes/footer.inc.php');
           break;
           case 5: //show club admin page
-          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_admin.php')->views('includes/footer.inc.php')->view('page_admin_ajax.php');
+          $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');
           break;
         }
       }
@@ -78,12 +78,22 @@ class Home extends CI_Controller {
     }
   }
 
-  function Logout(){
-
+  public function Logout()
+  {
       $this->load->library('session');
       $this->session->unset_userdata('connect');
       session_destroy();
       redirect('/home/', 'refresh');
+  }
+
+  public function Interclubs()
+  {
+      $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_interclubs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_interclubs_ajax.php');
+  }
+
+  public function Joueurs()
+  {
+      $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');
   }
 
   public function password_check($old_password)
@@ -103,9 +113,9 @@ class Home extends CI_Controller {
 
   public function ajax_upload()
   {
-      if(!empty($_FILES['fichierCSV']['name']))
+      if(!empty($_FILES['fichierCSV']['name']))//SI un fichier a été sélectionné
       {
-        if(file_exists('assets/files/'.$_FILES['fichierCSV']['name']))
+        if(file_exists('assets/files/'.$_FILES['fichierCSV']['name']))//Si le fichier existe déjà 
         {
           $data['file'] = 'Le nom du fichier existe déjà';
         }
@@ -114,7 +124,7 @@ class Home extends CI_Controller {
           $upload = $this->_do_upload();
           $data['photo'] = $upload;
         }
-      }//else gérer l'erreur
+      }//sinon gérer l'erreur
       else
       {
         $data['file'] = 'Veuillez sélectionner un fichier svp';
@@ -122,7 +132,7 @@ class Home extends CI_Controller {
       //Lire le fichier csv
       $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
       
-      foreach($csvData as $match)
+      foreach($csvData as $match)//lire ligne par ligne
       {
         //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
         $this->load->model('joueur_model','joueur');
@@ -134,7 +144,7 @@ class Home extends CI_Controller {
         
         $this->load->model('rencontre_model','rencontre');
         $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
-
+        //Si la rencontre n'existe pas => renvoyer une erreur date ou joueur
         $data = array(
                 'FK_rencontre' => $rencontre->id_rencontre,
                 'victoire' => $match['victoire'],

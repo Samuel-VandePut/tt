@@ -1,0 +1,17 @@
+date,nom,prenom,victoire,defaite
+2017/09/16,Tang,Alexander,E0,
+2017/09/16,Tang,Alexander,D4,
+2017/09/16,Tang,Alexander,D6,
+2017/09/16,Tang,Alexander,E2,
+2017/09/16,Badet,Audrey,,E0
+2017/09/16,Badet,Audrey,,D4
+2017/09/16,Badet,Audrey,,D6
+2017/09/16,Badet,Audrey,E2,
+2017/09/16,Inghels,Xavier,E0,
+2017/09/16,Inghels,Xavier,,D4
+2017/09/16,Inghels,Xavier,D6,
+2017/09/16,Inghels,Xavier,E2,
+2017/09/16,Kone,Ibrahim,,E0
+2017/09/16,Kone,Ibrahim,,D4
+2017/09/16,Kone,Ibrahim,,D6
+2017/09/16,Kone,Ibrahim,,E2

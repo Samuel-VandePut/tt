@@ -12,11 +12,12 @@ class joueur_model extends CI_Model{
   parent::__construct();
   }
 
-  private function _get_datatables_query()
+  private function _get_datatables_query($pool)
   {
       //$this->db->select('id_joueur','nom','prenom','classement','FK_pool as pool','disponibilite');
       $this->db->from($this->table);
       $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
+      $this->db->where('FK_pool',$pool);
       
       $i = 0;
    
@@ -52,18 +53,18 @@ class joueur_model extends CI_Model{
       }
   }
 
-  function get_datatables()
+  function get_datatables($pool)
   {
-      $this->_get_datatables_query();
+      $this->_get_datatables_query($pool);
       if($_POST['length'] != -1)
-      $this->db->limit($_POST['length'], $_POST['start']);
+      //$this->db->limit($_POST['length'], $_POST['start']);
       $query = $this->db->get();
       return $query->result();
   }
 
-  function count_filtered()
+  function count_filtered($pool)
   {
-      $this->_get_datatables_query();
+      $this->_get_datatables_query($pool);
       $query = $this->db->get();
       return $query->num_rows();
   }

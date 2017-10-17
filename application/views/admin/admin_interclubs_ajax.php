@@ -7,15 +7,40 @@ var base_url = '<?php echo base_url();?>';
 $(document).ready(function() {
  
     //datatables
-    table = $('#table').DataTable({ 
+    table = $('#table_pool_3').DataTable({ 
  
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
+        "responsive": true,
  
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('joueur/ajax_list')?>",
+            "url": "<?php echo site_url('joueur/ajax_list/3')?>",
+            "type": "POST"
+        },
+ 
+        //Set column definition initialisation properties.
+        "columnDefs": [      
+        ],
+ 
+    });
+  
+});
+
+$(document).ready(function() {
+ 
+    //datatables
+    table = $('#table_pool_4').DataTable({ 
+ 
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+        "responsive": true,
+ 
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('joueur/ajax_list/4')?>",
             "type": "POST"
         },
  

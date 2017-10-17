@@ -30,11 +30,11 @@ class Joueur extends CI_Controller {
     $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_admin.php')->views('includes/footer.inc.php')->view('page_admin_ajax.php');
   }
 
-  public function ajax_list()
+  public function ajax_list($pool)
   {
       $this->load->helper('url');
 
-      $list = $this->joueur->get_datatables();
+      $list = $this->joueur->get_datatables($pool);
       //var_dump($list);
       $data = array();
       $no = $_POST['start'];
@@ -56,7 +56,7 @@ class Joueur extends CI_Controller {
       $output = array(
                       "draw" => $_POST['draw'],
                       "recordsTotal" => $this->joueur->count_all(),
-                      "recordsFiltered" => $this->joueur->count_filtered(),
+                      "recordsFiltered" => $this->joueur->count_filtered($pool),
                       "data" => $data,
               );
       //output to json format

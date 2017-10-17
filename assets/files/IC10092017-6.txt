@@ -1,0 +1,17 @@
+date,nom,prenom,victoire,defaite
+2017/09/10,Van de Put,Samuel,,E0
+2017/09/10,Van de Put,Samuel,,D4
+2017/09/10,Van de Put,Samuel,E4,
+2017/09/10,Van de Put,Samuel,,E2
+2017/09/10,Masclet,Laurence,E0,
+2017/09/10,Masclet,Laurence,,D4
+2017/09/10,Masclet,Laurence,E4,
+2017/09/10,Masclet,Laurence,,E2
+2017/09/10,LHaij,Samir,E0,
+2017/09/10,LHaij,Samir,D4,
+2017/09/10,LHaij,Samir,E4,
+2017/09/10,LHaij,Samir,,E2
+2017/09/10,Michael,Remi,,E0
+2017/09/10,Michael,Remi,D4,
+2017/09/10,Michael,Remi,E4,
+2017/09/10,Michael,Remi,,E2
