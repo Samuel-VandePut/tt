@@ -110,6 +110,17 @@ class rencontre_model extends CI_Model{
       $this->db->delete($this->table);
   }
 
+  public function get_joueurs($interclub)
+  {
+      $this->db->select('FK_joueur');
+      $this->db->from($this->table);
+      $this->db->join('interclub','rencontre.FK_interclub = interclub.id_interclub','left');
+      $this->db->where('FK_interclub',$interclub);
+      $query = $this->db->get();
+
+      return $query->result();
+  }
+
 }
 
 ?>

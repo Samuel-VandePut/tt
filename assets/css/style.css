@@ -20,16 +20,6 @@ body {
   clear: both;
 }
 
-#poola {
-	float:left;
-}
-
-
-#poolb {
-	float:right;
-}
-
-
 .float-left {
 	float:left;
 }
@@ -37,4 +27,33 @@ body {
 
 .float-right {
 	float:right;
+}
+
+.form_w, .form_l{
+  border-radius:2px;
+  font-size: 0.75em;
+  margin: 0px 1px;
+  display: inline-block;
+  min-width: 15px;
+  padding: 1px;
+  text-align: center;
+}
+
+.form_w {
+  color: white !important;
+  background-color: green;
+}
+
+.form_w:before {
+  content: "W";
+}
+
+
+.form_l {
+  color: white !important;
+  background-color: red;
+}
+
+.form_l:before{
+  content: "L";
 }

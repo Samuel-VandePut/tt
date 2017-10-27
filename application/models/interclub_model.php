@@ -118,13 +118,15 @@ class interclub_model extends CI_Model{
       $this->db->delete($this->table);
   }
 
-  public function get_joueurs_dispo()
+  public function get_lastIC()
   {
+      $this->db->select('id_interclub');
       $this->db->from($this->table);
-      $this->db->where('disponibilite', 1);
+      $this->db->order_by("id_interclub", "desc");
+      $this->db->limit(2);
       $query = $this->db->get();
 
-      return $query->row();
+      return $query->result();
   }
 
 }

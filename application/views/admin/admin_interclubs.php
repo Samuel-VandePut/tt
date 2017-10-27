@@ -26,52 +26,81 @@
                 <button type="button" id="btnUpload" onclick="upload()" class="btn btn-primary">Télécharger</button>
               </div>
             </form>
+            <br />
+            <div class="alert" id="alert">
+            </div>
+            <br />
           </div>
-            <br />
-            <br />
           <!-- /Form Upload matchs -->
 
           <!-- Pools Tables -->
-          <div class="col-md-12">
-            <h2>Liste des fichiers</h3>
-            <br />
-          </div>
-          <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>
-          <br />
-          <br />
-          <div id="csv" class="col-md-6 col-xs-6">
-            <h2>Division 3</h2>
-            <table id="table_csv" class="table table-striped table-bordered" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Classement</th>
-                    <th>Pool</th>
-                    <th>Disponibilite</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-   
-              <tfoot>
-                <tr>
-                    <th>N°</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Classement</th>
-                    <th>Pool</th>
-                    <th>Disponibilite</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-          
-          
-
-          <button class="btn btn-default" onclick="generate_teams()"><i class="glyphicon glyphicon-check"></i> Générer les équipes</button>
+          <div class="container-fluid clear-fix">
+            <div id="csv" class="col-md-6 col-xs-6 float-left">
+                <div class="clear-fix">
+                  <div class="float-left">
+                    <h2>Matchs ajoutés</h2>
+                  </div>
+                  <div class="float-right clear-fix">  
+                    <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>
+                  </div>
+                </div>
+              <table id="table_matchs" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                      <th>N°</th>
+                      <th>Date</th>
+                      <th>Nom</th>
+                      <th>Prenom</th>
+                      <th>Victoire</th>
+                      <th>Défaite</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+     
+                <tfoot>
+                  <tr>
+                      <th>N°</th>
+                      <th>Date</th>
+                      <th>Nom</th>
+                      <th>Prenom</th>
+                      <th>Victoire</th>
+                      <th>Défaite</th>
+                </tfoot>
+              </table>
+            </div>
+            <!-- Pools Tables -->
+            
+            <div id="files" class="col-md-6 col-xs-6 float-right">
+              <div class="clear-fix">
+                <div class="float-left">
+                  <h2>Fichiers</h2>
+                </div>
+                <div class="float-right clear-fix">  
+                  <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>
+                </div>
+              </div>
+              <table id="table_files" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                      <th>N°</th>
+                      <th>Nom</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+     
+                <tfoot>
+                  <tr>
+                      <th>N°</th>
+                      <th>Nom</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+        </div>  
       </div>
+          
       <!-- /.container-fluid -->
 
     </div>

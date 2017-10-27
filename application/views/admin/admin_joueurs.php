@@ -18,7 +18,7 @@
             <h2>Liste des joueurs</h3>
             <br />
           </div>
-          <div id="poola" class="col-md-6 col-xs-6">
+          <div id="poola" class="col-md-6 col-xs-6 float-left">
           <div class="clear-fix">
             <div class="float-left col-md-6"> 
               <h2>Division 3</h2>
@@ -34,31 +34,30 @@
                     <th>N°</th>
                     <th>Nom</th>
                     <th>Prenom</th>
-                    <th>Classement</th>
-                    <th>Pool</th>
-                    <th>Disponibilite</th>
+                    <th>Class</th>
+                    <th>Forme</th>
+                    <th>Disp</th>
                 </tr>
               </thead>
               <tbody>
               </tbody>
-   
               <tfoot>
                 <tr>
                     <th>N°</th>
                     <th>Nom</th>
                     <th>Prenom</th>
-                    <th>Classement</th>
-                    <th>Pool</th>
-                    <th>Disponibilite</th>
+                    <th>Class</th>
+                    <th>Forme</th>
+                    <th>Disp</th>
                 </tr>
               </tfoot>
             </table>
             <br>
             <div class="col-md-6">
-              <button class="btn btn-default" onclick="generate_team_3()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+              <button class="btn btn-default" onclick="generate_team(3)"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
             </div>
           </div>
-          <div id="poolb" class="col-md-6 col-xs-6">
+          <div id="poolb" class="col-md-6 col-xs-6 float-right">
             <div class="clear-fix">
               <div class="float-left col-md-6"> 
                 <h2>Division 4</h2>
@@ -74,9 +73,9 @@
                     <th>N°</th>
                     <th>Nom</th>
                     <th>Prenom</th>
-                    <th>Classement</th>
-                    <th>Pool</th>
-                    <th>Disponibilite</th>
+                    <th>Class</th>
+                    <th>Forme</th>
+                    <th>Disp</th>
                 </tr>
               </thead>
               <tbody>
@@ -87,15 +86,15 @@
                     <th>N°</th>
                     <th>Nom</th>
                     <th>Prenom</th>
-                    <th>Classement</th>
-                    <th>Pool</th>
-                    <th>Disponibilite</th>
+                    <th>Class</th>
+                    <th>Forme</th>
+                    <th>Disp</th>
                 </tr>
               </tfoot>
             </table>
             <br>
             <div class="col-md-6">
-              <button class="btn btn-default" onclick="generate_team_4()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+              <button class="btn btn-default" onclick="generate_team(4)"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
             </div>
           </div>  
           </div>
@@ -117,38 +116,47 @@
 
     
     <!-- Bootstrap modal -->
-    <div class="modal fade" id="login-modal" role="dialog">
+    <div class="modal fade" id="equipe-modal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title">Login</h3>
+                    <h3 class="modal-title">Equipe Division</h3>
                 </div>
                 <div class="modal-body form">
-                    <form action="<?php echo site_url('Home/login'); ?>" method="POST" id="form" class="form-horizontal">                          
-                        <div class="form-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Login</label>
-                                <div class="col-md-9">
-                                    <input name="login" placeholder="Login" class="form-control" type="text">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Password</label>
-                                <div class="col-md-9">
-                                    <input name="password" placeholder="Mot de passe" class="form-control" type="password">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                  </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnSave" onclick="login()" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-danger" onclick="hide()" data-dismiss="modal">Cancel</button>
+                    <table id="modal_table_effectif" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Class</th>
+                            <th>Forme</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                    <h3>Réserves</h3>
+                    <table id="modal_table_reserve" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Class</th>
+                            <th>Forme</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                 </div>
-            </div><!-- /.modal-content -->
+              <div class="modal-footer">
+                  <button type="button" id="btnSave" onclick="login()" class="btn btn-primary">Submit</button>
+                  <button type="button" class="btn btn-danger" onclick="hide()" data-dismiss="modal">Cancel</button>
+              </div>
+          </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!-- End Bootstrap modal -->

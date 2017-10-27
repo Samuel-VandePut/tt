@@ -121,7 +121,15 @@ class joueur_model extends CI_Model{
 
       return $query->row();
   }
-
+  
+  public function get_joueurs_pool($pool)
+  {
+    $this->db->from($this->table);
+    $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
+    $this->db->where('FK_pool',$pool);
+    $query = $this->db->get();
+    return $query->result();
+  }
 
   public function get_joueurs_info($id_joueur)
   {
@@ -133,14 +141,25 @@ class joueur_model extends CI_Model{
     $query = $this->db->get();
     //var_dump($this->db->last_query());die(); 
     
-    return $query->row();
+    //return $query->row();
         
-        /*if (count($query) > 0) {
+        if (count($query) > 0) {
             foreach ($query->result() as $row) {
                 $data[] = $row;
             }
             return $data;
-        } */
+        }
+  }
+
+  public function get_form($id_joueur)
+  {
+    $this->db->select('victoire, defaite');    
+    $this->db->from('match');
+    $this->db->join('rencontre', 'match.FK_rencontre = rencontre.id_rencontre');
+    $this->db->where('FK_joueur',$id_joueur);
+    $this->db->limit(5);
+    $query = $this->db->get();
+    return $query->result();
   }
 
 }

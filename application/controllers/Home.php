@@ -113,49 +113,65 @@ class Home extends CI_Controller {
 
   public function ajax_upload()
   {
+      $status = array();
       if(!empty($_FILES['fichierCSV']['name']))//SI un fichier a été sélectionné
       {
         if(file_exists('assets/files/'.$_FILES['fichierCSV']['name']))//Si le fichier existe déjà 
         {
-          $data['file'] = 'Le nom du fichier existe déjà';
+          $status['error'] = 'Le nom du fichier existe déjà';
         }
         else
         {
           $upload = $this->_do_upload();
-          $data['photo'] = $upload;
+          $status['match'] = $upload;
+
+          //Lire le fichier csv
+          $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
+          $matchs = array();
+          foreach($csvData as $match)//lire ligne par ligne
+          {
+            //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
+            $this->load->model('joueur_model','joueur');
+            $joueur = $this->joueur->get_by_name($match['nom'],$match['prenom']);
+
+            //récupérer id_interclub si il existe, sinon créer l'interclub
+            $this->load->model('interclub_model','interclub');
+            $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match['date'])));
+            if($interclub == null) $status['error'] = 'L\'interclub pour cette date n\'existe pas';
+            
+            $this->load->model('rencontre_model','rencontre');
+            $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
+            //Si la rencontre n'existe pas => renvoyer une erreur date ou joueur
+            if($rencontre == null) $status['error'] = 'Les équipes pour cet interclub n\'ont pas été créées';
+
+            //ajouter les matchs            
+            $this->load->model('match_model','match');
+            $data = array(
+                    'FK_rencontre' => $rencontre->id_rencontre,
+                    'victoire' => $match['victoire'],
+                    'defaite' => $match['defaite']
+                );
+
+            $id = $this->match->save($data);
+
+            //Créer liste des matchs pour datatable
+            $row = array();
+            $row[] = $id;
+            $row[] = $match['date'];
+            $row[] = $match['nom'];
+            $row[] = $match['prenom'];
+            $row[] = $match['victoire'];
+            $row[] = $match['defaite'];
+            $matchs[] = $row;  
+          }
         }
       }//sinon gérer l'erreur
       else
       {
-        $data['file'] = 'Veuillez sélectionner un fichier svp';
+        $status['error'] = 'Veuillez sélectionner un fichier svp';
       }
-      //Lire le fichier csv
-      $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
-      
-      foreach($csvData as $match)//lire ligne par ligne
-      {
-        //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
-        $this->load->model('joueur_model','joueur');
-        $joueur = $this->joueur->get_by_name($match['nom'],$match['prenom']);
-        //récupérer id_interclub si il existe, sinon créer l'interclub
-        $this->load->model('interclub_model','interclub');
-        $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match['date'])));
-        //if($interclub == null) $interclub = $this->interclub->save(array('date' => $match['date']));
-        
-        $this->load->model('rencontre_model','rencontre');
-        $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
-        //Si la rencontre n'existe pas => renvoyer une erreur date ou joueur
-        $data = array(
-                'FK_rencontre' => $rencontre->id_rencontre,
-                'victoire' => $match['victoire'],
-                'defaite' => $match['defaite']
-            );
 
-        //ajouter les matchs
-        $this->load->model('match_model','match');
-        $this->match->save($data);  
-      }
-      echo json_encode(array("status" => TRUE,'name' => $_FILES['fichierCSV']['name']));
+      echo json_encode(array("status" => $status,'name' => $_FILES['fichierCSV']['name'], 'matchs' => $matchs));
   }
 
   private function _do_upload()
@@ -182,12 +198,28 @@ class Home extends CI_Controller {
 
   public function readExcel($path)
   {
-          $this->load->library('csvreader');
-          $result = $this->csvreader->parse_file($path);
-          return $result;
-          //$data['csvData'] =  $result;
-          //$this->load->view('view_csv', $data);  
+      $this->load->library('csvreader');
+      $result = $this->csvreader->parse_file($path);
+      return $result;
+      //$data['csvData'] =  $result;
+      //$this->load->view('view_csv', $data);  
   }
 
+  public function filesList()
+  {
+      $this->load->helper('directory');
+      $map = directory_map('assets/files/');
+      $data = array();
+      $no = 0;
+      foreach ($map as $file) {
+          $no++;
+          $row = array();
+          $row[] = $no;
+          $row[] = $file;
+
+          $data[] = $row;
+      }
+      echo json_encode(array("data" => $data));
+  }
 
 }

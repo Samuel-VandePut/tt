@@ -1,0 +1,17 @@
+date,nom,prenom,victoire,defaite
+2017/09/10,Fayt,Romain,B4,
+2017/09/10,Fayt,Romain,C0,
+2017/09/10,Fayt,Romain,,B6
+2017/09/10,Fayt,Romain,C2,
+2017/09/10,Blaise,Geoffrey,,B4
+2017/09/10,Blaise,Geoffrey,C0,
+2017/09/10,Blaise,Geoffrey,B6,
+2017/09/10,Blaise,Geoffrey,C2,
+2017/09/10,Dessoy,Arnaud,,B4
+2017/09/10,Dessoy,Arnaud,,C0
+2017/09/10,Dessoy,Arnaud,,B6
+2017/09/10,Dessoy,Arnaud,C2,
+2017/09/10,Quiriny,Domingo,,B4
+2017/09/10,Quiriny,Domingo,C0,
+2017/09/10,Quiriny,Domingo,,B6
+2017/09/10,Quiriny,Domingo,C2,

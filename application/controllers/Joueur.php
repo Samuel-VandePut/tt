@@ -63,6 +63,40 @@ class Joueur extends CI_Controller {
       echo json_encode($output);
   }
 
+  public function ajax_joueurs($pool)
+  {
+      $this->load->helper('url');
+
+      $list = $this->joueur->get_joueurs_pool($pool);
+      //var_dump($list);
+      $data = array();
+      foreach ($list as $joueur)
+      {
+          $last_matchs = $this->joueur->get_form($joueur->id_joueur); //recupérer la forme(résultat des 5 derniers matchs) du joueur 
+          $form = ""; //string qui va contenir le code html de la forme. Composé de 5 balises <a> contenant la class form_w pour victoire ou form_l pour défaite
+          for($i = 0; $i < count($last_matchs); $i++) 
+          {
+            $form .= ($last_matchs[$i]->victoire != '')? "<a class=\"form_w\"></a>" : "<a class=\"form_l\"></a>";
+          }
+          $row = array();
+          $row[] = $joueur->id_joueur;
+          $row[] = $joueur->nom;
+          $row[] = $joueur->prenom;
+          $row[] = $joueur->classement;
+          $row[] = $form;
+
+          $row[] = '<input type="button" value="Présent">';
+                    
+          $data[] = $row;
+      }
+
+      $output = array(
+                      "data" => $data,
+              );
+      //output to json format
+      echo json_encode($output);
+  }
+
   public function ajax_set_dispo($id)
   {
       $data = array(

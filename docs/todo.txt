@@ -7,8 +7,8 @@ Samuel
 -> renvoyer une erreur à l'utilisateur lorsqu'il n'y a pas de connection. Ex : lors de la modification des disponibilités
 -> Lors de l'upload : 
 	- Ecraser le fichier si il existe déjà.  Demander confirmation
--> DB : - possible d'ajouter les même matchs plusieurs fois
-
+-> DB : On ne devrait pas pouvoir ajouter les même matchs plusieurs fois !!
+-> DB : Insert des matchs d'un coup. pas match par match
 
 ----------
 Ibrahim
@@ -16,7 +16,7 @@ Ibrahim
 
 -> Créer page utilisateur (niveau 1)
 	-> Afficher la liste des matchs joués de l'utilisateur
-	-> Créer une fonction calculer le classement virtuel
+	-> Créer une fonction calculer le classement virtuel à l'aide de la fonction calcul_points() et du fichier "simulationclasst.pdf"
 
 
 

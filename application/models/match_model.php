@@ -17,8 +17,6 @@ class match_model extends CI_Model{
       //$this->db->select('id_joueur','nom','prenom','classement','FK_pool as pool','disponibilite');
       $this->db->from($this->table);
       $this->db->join('rencontre','match.FK_rencontre = rencontre.id_rencontre','left');
-      $this->db->join('rencontre','match.FK_rencontre = rencontre.id_rencontre','left');
-      $this->db->join('rencontre','match.FK_rencontre = rencontre.id_rencontre','left');
       
       $i = 0;
    
