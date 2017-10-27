@@ -12,28 +12,59 @@
                     <table class="table table-bordered">
                             <thead>
                               <tr>
-                              <th>Classement</th>
-                              <th>Pool</th>
-                              <th>Rencontre</th>
-                              <th>Interclub</th>
-                              <th>Match</th>
-                              <th>Defaite</th>
-                              <th>Victoire</th>
+                                 <th>Classement</th>
+                                 <th>Nombre de match</th>
+                                 <th>Nombre  de victoire </th> 
+                                 <th>Nombre de defaite </th>                            
                               </tr>
                             </thead>
                       <tbody>
                   
           <?php
               if(count($joueur) > 0 ){
+                          //var_dump  ($T_match);
+                         echo'<tr>';
+                              foreach ($total as $row)
+                              {
+                                echo'<td>'.$row->classement.'</td>';
+                              }
+                              echo'<td>'.$T_match.'</td>';
+                              echo'<td>'.$victoire.'</td>';
+                              echo'<td>'.$defaite.'</td>';
+                         echo'</tr>';
+                     
+                      
+
+              }else{
+                      echo'<p class="text-center">Desolé,nous n\'avons aucune information </p>';
+              }
+            ?>
+                                    
+                          </tbody>
+                    </table>
+
+
+
+                    <div class="container"> 
+                    <table class="table table-bordered">
+                            <thead>
+                              <tr>                      
+                                 <th>Date des matchs</th>
+                                 <th>Defaite</th>
+                                 <th>Victoire</th>
+                              </tr>
+                            </thead>
+                      <tbody>
+                  
+          <?php
+              if(count($joueur) > 0 ){
+
+                 
                     foreach ($joueur as $row)
                     {
-                    
-                          echo'<tr>
-                                  <td>'.$row->classement.'</td>';
-                              echo'<td>'.$row->FK_pool.'</td>';
-                              echo'<td>'.$row->id_rencontre.'</td>';
-                              echo'<td>'.$row->FK_interclub.'</td>';
-                              echo'<td>'.$row->id_match.'</td>';
+                           echo'<tr>    
+                                <td>'.$row->date.'</td>';                    
+
                               if (!empty($row->defaite)) {
 
                                   echo'<td>'.$row->defaite.'</td>';
@@ -65,8 +96,9 @@
                     </table>
              </div>  
          </div>
-    </div>';
+    </div>
     
  
+     
     
    

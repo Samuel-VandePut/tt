@@ -55,15 +55,23 @@ class Home extends CI_Controller {
         {
           case 1: //show player page
 
-          $this->load->model('joueur_model');  
-          $joueur['recup']=$this->joueur_model->get_joueurs_info($_SESSION['connect']['Id_jou']);
-
+          $this->load->model('joueur_model');//charger le modèle joueur
+          $joueur['recup_dv'] = $this->joueur_model->get_joueurs_info($_SESSION['connect']['Id_jou']);
+          $joueur_t['total_j'] = $this->joueur_model->get_joueurs_match($_SESSION['connect']['Id_jou']);
+          $joueur['recup_total'] = $this->joueur_model->total_match($_SESSION['connect']['Id_jou']);
+          $joueur['def'] = $this->joueur_model->total_match_def($_SESSION['connect']['Id_jou']);
+          $joueur['vict'] = $this->joueur_model->total_match_victoire($_SESSION['connect']['Id_jou']);
+         
           $data=array();
-          $data['joueur']=$joueur['recup'];
-          $data['nom']=$_SESSION['connect']['Nom'];
-          $data['prenom']=$_SESSION['connect']['Prenom'];
+          $data['victoire'] = $joueur['vict'];
+          $data['defaite'] = $joueur['def'];
+          $data['joueur'] = $joueur['recup_dv'];
+          $data['T_match'] = $joueur['recup_total'];
+          $data['total'] = $joueur_t['total_j'];
+          $data['nom'] = $_SESSION['connect']['Nom'];
+          $data['prenom'] = $_SESSION['connect']['Prenom'];
 
-          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php',$data)->view('includes/footer.inc.php');
+          $this->layout->views('includes/header.inc.php')->views('includes/navbar_perso.inc.php')->views('page_perso.php',$data)->view('includes/footer.inc.php');
           break;
           case 5: //show club admin page
           $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');
