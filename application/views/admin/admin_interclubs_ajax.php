@@ -8,7 +8,7 @@ $(document).ready(function() {
  
     $('#alert').hide(); 
     //datatables
-    table = $('#table_files').DataTable({ 
+    table = $('#table_interclubs').DataTable({ 
  
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -17,7 +17,7 @@ $(document).ready(function() {
  
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('Home/filesList')?>",
+            "url": "<?php echo site_url('Interclub/ajax_list')?>",
             "type": "POST"
         },
  
@@ -26,17 +26,12 @@ $(document).ready(function() {
         ],
  
     });
-
-    table = $('#table_matchs').DataTable({
-        "responsive": true,
-        data: ''
-    });
     
 });
  
 function reload_table()
 {
-    //table.ajax.reload(null,false); //reload datatable ajax
+    table.ajax.reload(null,false); //reload datatable ajax
 }
 
 function hide()
@@ -44,58 +39,47 @@ function hide()
     $('#modal_form').modal('hide');
 }
 
-function upload()
+function show_modal()
 {
-    $('#btnUpload').text('en cours...'); //change button text
-    $('#btnUpload').attr('disabled',true); //set button disable 
     $('#alert').empty();
+    $('#alert').removeClass('alert-danger');
+    $('#alert').hide();
+    $("#interclub-modal").modal(); 
+}
 
-    var formData = new FormData($('#form-upload')[0]);
-    $.ajax({
-        url : "<?php echo site_url('Home/ajax_upload')?>",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        dataType: "JSON",
-        success: function(data)
-        {
+function add_interclub()
+{
+    if(confirm('Etes-vous sur d\'ajouter l\'interclub?'))
+    {
+        var formData = new FormData($('#form-interclub')[0]);
+        $.ajax({
+            url : "<?php echo site_url('Interclub/ajax_add_interclub')?>",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function(data)
+            {
+                if(data.status)
+                {
+                    $("#interclub-modal").modal('toggle');
+                    reload_table();
+                } 
 
-            $("#table_matchs").DataTable().destroy(); //détruire la table avant de la repeupler
-            //datatables
-            table = $('#table_matchs').DataTable({ 
-         
-                "responsive": true,
-                // Load data for the table's content from an Ajax source
-                data: data.matchs
-            });
- 
-            if(!data.status['error']) //if success close modal and reload ajax table
+            },
+            error: function (jqXHR, textStatus, errorThrown)
             {
-                $('#alert').addClass('alert-success');
-                $('#alert').append('<p class="text-center"><strong>Félicitation !</strong> Votre fichier a bien été ajouté</p>');
-                $('#alert').show();
-            }
-            else
-            {
+                alert('Error adding / update data');
                 $('#alert').addClass('alert-danger');
                 $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
-                $('#alert').show();         
+                $('#alert').show();           
+                $('#btnUpload').text('Ajouter'); //change button text
+                $('#btnUpload').attr('disabled',false); //set button enable 
+     
             }
-            $('#btnUpload').text('Ajouter des Matchs'); //change button text
-            $('#btnUpload').attr('disabled',false); //set button enable 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error adding / update data');
-            $('#alert').addClass('alert-danger');
-            $('#alert').append('<p class="text-center"><strong>Désolé.</strong> Votre fichier n\'a pas été ajouté</p>');
-            $('#alert').show();           
-            $('#btnUpload').text('Ajouter des Matchs'); //change button text
-            $('#btnUpload').attr('disabled',false); //set button enable 
- 
-        }
-    });
+        });
+    }
 }
 
 </script>

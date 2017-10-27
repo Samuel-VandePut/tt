@@ -91,15 +91,6 @@ class interclub_model extends CI_Model{
       return $query->row();
   }
 
-  public function get_id($id)
-  {
-      $this->db->from($this->table);
-      $this->db->where('id_joueur',$id);
-      $query = $this->db->get();
-
-      return $query->row();
-  }
-
   public function save($data)
   {
       $this->db->insert($this->table, $data);
@@ -124,6 +115,14 @@ class interclub_model extends CI_Model{
       $this->db->from($this->table);
       $this->db->order_by("id_interclub", "desc");
       $this->db->limit(2);
+      $query = $this->db->get();
+
+      return $query->result();
+  }
+
+  public function get()
+  {
+      $this->db->from($this->table);      
       $query = $this->db->get();
 
       return $query->result();

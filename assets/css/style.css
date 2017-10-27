@@ -57,3 +57,7 @@ body {
 .form_l:before{
   content: "L";
 }
+
+#alert {
+  margin: 10px 0px;
+}

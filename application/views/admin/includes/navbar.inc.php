@@ -8,12 +8,15 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="<?php echo base_url();?>Home/Joueurs">Joueurs
+              <a class="nav-link" href="<?php echo base_url();?>Home/Joueurs">Pools
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url();?>Home/Interclubs">Interclubs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url();?>Home/Matchs">Matchs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url();?>Home/Logout">Se déconnecter</a>

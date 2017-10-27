@@ -99,6 +99,11 @@ class Home extends CI_Controller {
       $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_interclubs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_interclubs_ajax.php');
   }
 
+  public function Matchs()
+  {
+      $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_matchs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_matchs_ajax.php');
+  }
+
   public function Joueurs()
   {
       $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');
@@ -122,6 +127,7 @@ class Home extends CI_Controller {
   public function ajax_upload()
   {
       $status = array();
+      $matchs = array();
       if(!empty($_FILES['fichierCSV']['name']))//SI un fichier a été sélectionné
       {
         if(file_exists('assets/files/'.$_FILES['fichierCSV']['name']))//Si le fichier existe déjà 
@@ -135,7 +141,6 @@ class Home extends CI_Controller {
 
           //Lire le fichier csv
           $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
-          $matchs = array();
           foreach($csvData as $match)//lire ligne par ligne
           {
             //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
@@ -145,12 +150,20 @@ class Home extends CI_Controller {
             //récupérer id_interclub si il existe, sinon créer l'interclub
             $this->load->model('interclub_model','interclub');
             $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match['date'])));
-            if($interclub == null) $status['error'] = 'L\'interclub pour cette date n\'existe pas';
-            
+            //Si l'interclub n'existe pas => renvoyer une erreur
+            if($interclub == null)
+            {
+              $status['error'] = 'L\'interclub pour cette date n\'existe pas';
+              break;
+            } 
             $this->load->model('rencontre_model','rencontre');
             $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
-            //Si la rencontre n'existe pas => renvoyer une erreur date ou joueur
-            if($rencontre == null) $status['error'] = 'Les équipes pour cet interclub n\'ont pas été créées';
+            //Si la rencontre n'existe pas => renvoyer une erreur
+            if($rencontre == null) 
+            {
+              $status['error'] = 'Les équipes pour cet interclub n\'ont pas été créées';
+              break;
+            }
 
             //ajouter les matchs            
             $this->load->model('match_model','match');
@@ -228,6 +241,13 @@ class Home extends CI_Controller {
           $data[] = $row;
       }
       echo json_encode(array("data" => $data));
+  }
+
+  public function ajax_interclub()
+  {
+    $this->load->model('interclub_model','interclub');
+    $data = $this->interclub->get();
+    echo json_encode(array("interclub" => $data));
   }
 
 }

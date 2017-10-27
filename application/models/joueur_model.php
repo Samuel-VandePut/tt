@@ -154,8 +154,6 @@ class joueur_model extends CI_Model{
         }
    }
 
-
-
   public function get_form($id_joueur)
   {
     $this->db->select('victoire, defaite');    
@@ -232,7 +230,7 @@ public function get_joueurs_match($id_joueur)
       
 
     }
-    
+
   public function total_match($id_joueur)
   {
 
