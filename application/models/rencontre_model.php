@@ -82,6 +82,15 @@ class rencontre_model extends CI_Model{
       return $query->row();
   }
 
+  public function get_by_interclub_id($id_interclub)
+  {
+      $this->db->from($this->table);
+      $this->db->where('FK_interclub',$id_interclub);
+      $query = $this->db->get();
+
+      return $query->result();
+  }
+
   public function get_by_joueur_interclub($id_joueur,$id_interclub)
   {
       $this->db->from($this->table);

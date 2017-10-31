@@ -20,9 +20,23 @@
     <script src="<?php echo base_url();?>assets/vendor/datatables/jquery.dataTables.js"></script>
     <script src="<?php echo base_url();?>assets/vendor/datatables/dataTables.bootstrap4.js"></script>
     <script src="<?php echo base_url('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
-
+   
 
     <script type="text/javascript">
+
+    var bouncingBall = anime({
+        targets: '.ball',
+        translateY: '50vh',
+        duration: 300,
+        loop: true,
+        direction: 'alternate',
+        easing: 'easeInCubic',
+        scaleX: {
+            value: 1.05,
+            duration: 150,
+            delay: 268
+        }
+    });
 
     var base_url = '<?php echo base_url();?>';
 

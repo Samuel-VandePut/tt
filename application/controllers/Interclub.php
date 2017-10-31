@@ -44,6 +44,8 @@ class Interclub extends CI_Controller {
           $row[] = $interclub->id_interclub;
           $row[] = $interclub->date;
 
+          //add html for action
+          $row[] = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_interclub('."'".$interclub->id_interclub."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
           $data[] = $row;
       }
 
@@ -60,13 +62,13 @@ class Interclub extends CI_Controller {
   public function ajax_delete($id)
   {
       //Check if interclub contain images
-      $this->load->model('interclub_img_model','interclub_img');
-      $result = $this->interclub_img->get_by_interclub_id($id);
+      $this->load->model('rencontre_model','rencontre');
+      $result = $this->rencontre->get_by_interclub_id($id);
       if(count($result) > 0)//delete images linked to realisation before deleting realisation 
       {
-        foreach ($result as $img)
+        foreach ($result as $rencontre)
         {
-          $this->interclub_img->delete_by_id($img->FK_images,$id);
+          $this->rencontre->delete_by_id($rencontre->id_rencontre);
         }
       }//delete realisation
       $this->interclub->delete_by_id($id);
@@ -109,7 +111,7 @@ class Interclub extends CI_Controller {
   }
 
 
-  public function ajax_add_interclub()
+  public function ajax_add()
   {            
       $status = '';
       //ajouter un interclub            

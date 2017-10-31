@@ -109,6 +109,13 @@ class Rencontre extends CI_Controller {
       echo json_encode(array("status" => TRUE, "rencontres" => $rencontres));
   }
 
+  public function ajax_by_interclub_id($id)
+  {
+      //Select all rencontres
+      $rencontres = $this->rencontre->get_by_interclub_id($id);
+      echo json_encode(array("status" => TRUE, "rencontres" => $rencontres));
+  }
+
   public function ajax_generate_teams()
   {
       $rencontres = $this->rencontre->get_rencontres_dispo();

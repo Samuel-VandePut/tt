@@ -31,6 +31,7 @@
                   <tr>
                       <th>N°</th>
                       <th>Date</th>
+                      <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,7 @@
                   <tr>
                       <th>N°</th>
                       <th>Date</th>
+                      <th>Action</th>
                 </tfoot>
               </table>
               <br>

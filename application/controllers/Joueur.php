@@ -63,11 +63,11 @@ class Joueur extends CI_Controller {
       echo json_encode($output);
   }
 
-  public function ajax_joueurs($pool)
+  public function ajax_joueurs()
   {
       $this->load->helper('url');
 
-      $list = $this->joueur->get_joueurs_pool($pool);
+      $list = $this->joueur->get_joueurs();
       //var_dump($list);
       $data = array();
       foreach ($list as $joueur)

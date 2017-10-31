@@ -1,4 +1,4 @@
-----------
+﻿----------
 Samuel
 ----------
 
@@ -9,6 +9,8 @@ Samuel
 	- Ecraser le fichier si il existe déjà.  Demander confirmation
 -> DB : On ne devrait pas pouvoir ajouter les même matchs plusieurs fois !!
 -> DB : Insert des matchs d'un coup. pas match par match
+-> Backend : validation (un joueur joue 4 matchs par interclub)
+-> déplacer les joueurs d'une équipe à l'autre si l'admin en a envie
 
 ----------
 Ibrahim

@@ -53,7 +53,7 @@ function add_interclub()
     {
         var formData = new FormData($('#form-interclub')[0]);
         $.ajax({
-            url : "<?php echo site_url('Interclub/ajax_add_interclub')?>",
+            url : "<?php echo site_url('Interclub/ajax_add')?>",
             type: "POST",
             data: formData,
             contentType: false,
@@ -80,6 +80,90 @@ function add_interclub()
             }
         });
     }
+}
+
+function delete_interclub($id)
+{
+    $.ajax({
+            url : "<?php echo site_url('Rencontre/ajax_by_interclub_id/')?>"+ id,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function(data)
+            {
+                if(data.status)
+                {
+                    if(confirm('Cet interclub est lié a des matchs. Souhaitez-vous supprimer l\'interclub et ceux-ci?'))
+                    {
+                        $.ajax({
+                            url : "<?php echo site_url('Interclub/ajax_delete/')?>"+ id,
+                            type: "POST",
+                            contentType: false,
+                            processData: false,
+                            dataType: "JSON",
+                            success: function(data)
+                            {
+                                if(data.status)
+                                {
+                                    reload_table();
+                                } 
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown)
+                            {
+                                alert('Error adding / update data');
+                                $('#alert').addClass('alert-danger');
+                                $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
+                                $('#alert').show();           
+                                $('#btnUpload').text('Ajouter'); //change button text
+                                $('#btnUpload').attr('disabled',false); //set button enable 
+                     
+                            }
+                        });
+                    }  
+                }
+                else
+                {
+                    $.ajax({
+                        url : "<?php echo site_url('Interclub/ajax_delete/')?>"+ id,
+                        type: "POST",
+                        contentType: false,
+                        processData: false,
+                        dataType: "JSON",
+                        success: function(data)
+                        {
+                            if(data.status)
+                            {
+                                reload_table();
+                            } 
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown)
+                        {
+                            alert('Error adding / update data');
+                            $('#alert').addClass('alert-danger');
+                            $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
+                            $('#alert').show();           
+                            $('#btnUpload').text('Ajouter'); //change button text
+                            $('#btnUpload').attr('disabled',false); //set button enable 
+                 
+                        }
+                    });
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+                $('#alert').addClass('alert-danger');
+                $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
+                $('#alert').show();           
+                $('#btnUpload').text('Ajouter'); //change button text
+                $('#btnUpload').attr('disabled',false); //set button enable 
+     
+            }
+    });
 }
 
 </script>

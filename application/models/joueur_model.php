@@ -130,7 +130,14 @@ class joueur_model extends CI_Model{
     $query = $this->db->get();
     return $query->result();
   }
-
+  
+  public function get_joueurs()
+  {
+    $this->db->from($this->table);
+    $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
+    $query = $this->db->get();
+    return $query->result();
+  }
 
   public function get_joueurs_info($id_joueur)
   {

@@ -21,11 +21,11 @@
           <div id="poola" class="col-md-6 col-xs-6 float-left">
           <div class="clear-fix">
             <div class="float-left col-md-6"> 
-              <h2>Division 3</h2>
+              
             </div>
             <div class="float-right clear-fix col-md-6">
               <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>  
-              <button class="btn btn-default" onclick="generate_team(3)"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
             </div>
           </div>
           <br>
@@ -55,53 +55,9 @@
             </table>
             <br>
             <div class="col-md-6">
-              <button class="btn btn-default" onclick="generate_team(3)"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
             </div>
-          </div>
-          <div id="poolb" class="col-md-6 col-xs-6 float-right">
-            <div class="clear-fix">
-              <div class="float-left col-md-6"> 
-                <h2>Division 4</h2>
-              </div>
-              <div class="float-right clear-fix col-md-6">
-                <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>  
-                <button class="btn btn-default" onclick="generate_team(4)"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
-              </div>
-            </div>
-            <br>
-            <table id="table_pool_4" class="table table-striped table-bordered" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Class</th>
-                    <th>Forme</th>
-                    <th>Disp</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-   
-              <tfoot>
-                <tr>
-                    <th>N°</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Class</th>
-                    <th>Forme</th>
-                    <th>Disp</th>
-                </tr>
-              </tfoot>
-            </table>
-            <br>
-            <div class="col-md-6">
-              <button class="btn btn-default" onclick="generate_team(4)"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
-            </div>
-          </div>  
-          </div>
-          
-
+          </div> 
       </div>
       <!-- /.container-fluid -->
 
