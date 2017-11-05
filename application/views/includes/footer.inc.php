@@ -20,9 +20,34 @@
     <script src="<?php echo base_url();?>assets/vendor/datatables/jquery.dataTables.js"></script>
     <script src="<?php echo base_url();?>assets/vendor/datatables/dataTables.bootstrap4.js"></script>
     <script src="<?php echo base_url('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
+    <script src="<?php echo base_url();?>assets/vendor/jquery/jquery.validate.min.js"></script>
    
 
     <script type="text/javascript">
+
+    $(document).ready(function(){
+
+    $("#log").validate({
+        rules: {
+            login: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true
+            }
+        },
+        submitHandler: function(log){
+            form.submit();
+        }
+    });
+
+    jQuery.validator.addMethod("email", function(value, element) {
+      // allow any non-whitespace characters as the host part
+      return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test( value );
+    }, 'Entrez une adresse email valide svp.');
+
+    });
 
     var bouncingBall = anime({
         targets: '.ball',

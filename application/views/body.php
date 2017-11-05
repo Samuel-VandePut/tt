@@ -97,7 +97,7 @@
                     <h3 class="modal-title">Login</h3>
                 </div>
                 <div class="modal-body form">
-                    <form action="<?php echo site_url('Home/login'); ?>" method="POST" id="form" class="form-horizontal">                          
+                    <form action="<?php echo site_url('Home/login'); ?>" method="POST" id="log" class="form-horizontal">                          
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="control-label col-md-3">Login</label>
