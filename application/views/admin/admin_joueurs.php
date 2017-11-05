@@ -18,7 +18,7 @@
             <h2>Liste des joueurs</h3>
             <br />
           </div>
-          <div id="poola" class="col-md-6 col-xs-6 float-left">
+          <div id="poola" class="col-md-8 col-xs-8 float-left">
           <div class="clear-fix">
             <div class="float-left col-md-6"> 
               
@@ -36,6 +36,7 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Class</th>
+                    <th>Pool</th>
                     <th>Forme</th>
                     <th>Disp</th>
                 </tr>
@@ -48,6 +49,7 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Class</th>
+                    <th>Pool</th>
                     <th>Forme</th>
                     <th>Disp</th>
                 </tr>

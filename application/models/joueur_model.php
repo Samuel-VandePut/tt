@@ -121,7 +121,7 @@ class joueur_model extends CI_Model{
 
       return $query->row();
   }
-  
+
   public function get_joueurs_pool($pool)
   {
     $this->db->from($this->table);

@@ -14,6 +14,12 @@ body {
     }
 }
 
+#apply_teams {
+  /*position: absolute;*/
+  right:    0;
+  bottom:   0;
+}
+
 .clear-fix:after {
   content: "";
   display: table;
@@ -27,6 +33,10 @@ body {
 
 .float-right {
 	float:right;
+}
+
+.inline-table {
+  display: inline-table;
 }
 
 .form_w, .form_l{

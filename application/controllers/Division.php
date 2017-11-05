@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Interclub extends CI_Controller {
+class Division extends CI_Controller {
 
   /**
    * Index Page for this controller.
@@ -22,7 +22,7 @@ class Interclub extends CI_Controller {
   function __construct() {
     parent::__construct();
     $this->load->library('layout');
-    $this->load->model('Interclub_model','interclub');     
+    $this->load->model('division_model','division');     
   }
 
   public function index()
@@ -34,25 +34,29 @@ class Interclub extends CI_Controller {
   {
       $this->load->helper('url');
 
-      $list = $this->interclub->get_datatables();
+      $list = $this->division->get_datatables();
       //var_dump($list);
       $data = array();
       $no = $_POST['start'];
-      foreach ($list as $interclub) {
+      foreach ($list as $division) {
           $no++;
           $row = array();
-          $row[] = $interclub->id_interclub;
-          $row[] = $interclub->date;
+          $row[] = $division->id_division;
+          $row[] = $division->nom;
+          $row[] = $division->prenom;
+          $row[] = $division->classement;
+          $row[] = $division->FK_pool;
 
-          //add html for action
-          $row[] = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_interclub('."'".$interclub->id_interclub."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+          if($division->disponibilite) $row[] = '<input type="checkbox" name="dispo'.$division->id_division.'" onclick="uncheck('.$division->id_division.')" checked>';
+          else $row[] = '<input type="checkbox" name="dispo'.$division->id_division.'" onclick="check('.$division->id_division.')">';
+          
           $data[] = $row;
       }
 
       $output = array(
                       "draw" => $_POST['draw'],
-                      "recordsTotal" => $this->interclub->count_all(),
-                      "recordsFiltered" => $this->interclub->count_filtered(),
+                      "recordsTotal" => $this->division->count_all(),
+                      "recordsFiltered" => $this->division->count_filtered($pool),
                       "data" => $data,
               );
       //output to json format
@@ -61,18 +65,17 @@ class Interclub extends CI_Controller {
 
   public function ajax_delete($id)
   {
-      //Check if interclub contain images
-      $this->load->model('rencontre_model','rencontre');
-      $result = $this->rencontre->get_by_interclub_id($id);
+      //Check if division contain images
+      $this->load->model('division_img_model','division_img');
+      $result = $this->division_img->get_by_division_id($id);
       if(count($result) > 0)//delete images linked to realisation before deleting realisation 
       {
-        foreach ($result as $rencontre)
+        foreach ($result as $img)
         {
-          $this->load->model('rencontre_model','rencontre');
-          $this->rencontre->delete_by_id($rencontre->id_rencontre);
+          $this->division_img->delete_by_id($img->FK_images,$id);
         }
       }//delete realisation
-      $this->interclub->delete_by_id($id);
+      $this->division->delete_by_id($id);
       echo json_encode(array("status" => TRUE));
   }
 
@@ -104,25 +107,14 @@ class Interclub extends CI_Controller {
       }
   }
 
-  public function ajax_get_interclubs()
+  public function ajax_get()
   {
-      //Select all interclubs
-      $interclubs = $this->interclub->get_interclubs();
-      echo json_encode(array("status" => TRUE, "interclubs" => $interclubs));
+      //Select all divisions
+      $divisions = $this->division->get();
+      echo json_encode(array("status" => TRUE, "divisions" => $divisions));
   }
 
+  
 
-  public function ajax_add()
-  {            
-      $status = '';
-      //ajouter un interclub            
-      $data = array(
-              'date' => $_POST['date']
-          );
-
-      $id = $this->interclub->save($data);
-      if($id != null) $status = true;
-      echo json_encode(array("status" => $status,'interclub' => $id));
-  }
 
 }

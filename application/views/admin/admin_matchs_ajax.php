@@ -8,7 +8,7 @@ $(document).ready(function() {
  
     $('#alert').hide(); 
     //datatables
-    table = $('#table_files').DataTable({ 
+    /*table = $('#table_files').DataTable({ 
  
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -17,7 +17,7 @@ $(document).ready(function() {
  
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('Home/filesList')?>",
+            "url": "<?php //echo site_url('Home/filesList')?>",
             "type": "POST"
         },
  
@@ -25,7 +25,7 @@ $(document).ready(function() {
         "columnDefs": [      
         ],
  
-    });
+    });*/
 
     table = $('#table_matchs').DataTable({
         "responsive": true,
@@ -99,7 +99,7 @@ function upload()
             }
         });
     }
-    
+    $("#upload-modal").modal('hide'); 
 }
 
 function show_modal()

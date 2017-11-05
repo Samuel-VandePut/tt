@@ -1,11 +1,11 @@
 <?php
 
-class match_model extends CI_Model{
+class equipe_model extends CI_Model{
 
-  var $table = 'match';
-  var $column_order = array('FK_rencontre','victoire','defaite'); //set column field database for datatable orderable
-  var $column_search = array('FK_rencontre'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-  var $order = array('id_joueur' => 'desc'); // default order 
+  var $table = 'equipe';
+  var $column_order = array('nom','FK_division'); //set column field database for datatable orderable
+  var $column_search = array('FK_division'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+  var $order = array('id_equipe' => 'desc'); // default order 
  
 
   function __construct() {
@@ -14,9 +14,8 @@ class match_model extends CI_Model{
 
   private function _get_datatables_query()
   {
-      //$this->db->select('id_joueur','nom','prenom','classement','FK_pool as pool','disponibilite');
       $this->db->from($this->table);
-      $this->db->join('rencontre','match.FK_rencontre = rencontre.id_rencontre','left');
+      $this->db->join('division','equipe.FK_division = division.id_division','left');
       
       $i = 0;
    
@@ -52,18 +51,18 @@ class match_model extends CI_Model{
       }
   }
 
-  function get_datatables()
+  function get_datatables($pool)
   {
-      $this->_get_datatables_query();
+      $this->_get_datatables_query($pool);
       if($_POST['length'] != -1)
       $this->db->limit($_POST['length'], $_POST['start']);
       $query = $this->db->get();
       return $query->result();
   }
 
-  function count_filtered()
+  function count_filtered($pool)
   {
-      $this->_get_datatables_query();
+      $this->_get_datatables_query($pool);
       $query = $this->db->get();
       return $query->num_rows();
   }
@@ -77,7 +76,7 @@ class match_model extends CI_Model{
   public function get_by_id($id)
   {
       $this->db->from($this->table);
-      $this->db->where('id_joueur',$id);
+      $this->db->where('id_equipe',$id);
       $query = $this->db->get();
 
       return $query->row();
@@ -97,26 +96,28 @@ class match_model extends CI_Model{
 
   public function delete_by_id($id)
   {
-      $this->db->where('id_joueur', $id);
+      $this->db->where('id_equipe', $id);
       $this->db->delete($this->table);
   }
 
-  public function get_joueurs_dispo()
+  public function get_by_division($division)
   {
       $this->db->from($this->table);
-      $this->db->where('disponibilite', 1);
-      $query = $this->db->get();
-
-      return $query->row();
-  }
-
-  public function get_by_rencontre($rencontre)
-  {
-      $this->db->from($this->table);
-      $this->db->where('FK_rencontre',$rencontre);
+      $this->db->where('FK_division', $division);
       $query = $this->db->get();
 
       return $query->result();
+
+  }
+
+  public function get_by_name_division($nom, $division)
+  {
+      $this->db->from($this->table);
+      $this->db->where('FK_division', $division);
+      $this->db->where('nom', $nom);
+      $query = $this->db->get();
+
+      return $query->row();
   }
 
 }

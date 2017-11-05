@@ -83,6 +83,7 @@ class Joueur extends CI_Controller {
           $row[] = $joueur->nom;
           $row[] = $joueur->prenom;
           $row[] = $joueur->classement;
+          $row[] = $joueur->FK_pool;
           $row[] = $form;
 
           $row[] = '<input type="button" value="Présent">';

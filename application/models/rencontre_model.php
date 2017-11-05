@@ -107,6 +107,12 @@ class rencontre_model extends CI_Model{
       return $this->db->insert_id();
   }
 
+  public function save_batch($data)
+  {
+      $this->db->insert_batch($this->table, $data);
+      return $this->db->insert_id();
+  }
+
   public function update($where, $data)
   {
       $this->db->update($this->table, $data, $where);
@@ -125,6 +131,20 @@ class rencontre_model extends CI_Model{
       $this->db->from($this->table);
       $this->db->join('interclub','rencontre.FK_interclub = interclub.id_interclub','left');
       $this->db->where('FK_interclub',$interclub);
+      $query = $this->db->get();
+
+      return $query->result();
+  }
+
+  public function get_rencontres_team($interclub,$team)
+  {
+      $this->db->select('FK_joueur, nom, prenom, classement');
+      $this->db->from($this->table);
+      $this->db->join('interclub','rencontre.FK_interclub = interclub.id_interclub','left');
+      $this->db->join('joueurs','rencontre.FK_joueur = joueurs.id_joueur','left');
+      $this->db->join('personnes','joueurs.FK_personne = personnes.id_personne','left');
+      $this->db->where('FK_interclub', $interclub);
+      $this->db->where('FK_equipe', $team);
       $query = $this->db->get();
 
       return $query->result();

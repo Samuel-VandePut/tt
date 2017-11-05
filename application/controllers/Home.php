@@ -104,6 +104,17 @@ class Home extends CI_Controller {
       $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_matchs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_matchs_ajax.php');
   }
 
+  public function Equipes()
+  {
+      /*$this->load->model('division_model','division');
+      $datas['divisions'] = $this->division->get();
+      $this->load->model('equipe_model','equipe');
+      $datas['equipes'] = $this->equipe->get($datas['divisions']->id_division);*/
+
+      $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_equipes.php')->views('admin/includes/footer.inc.php')->view('admin/admin_equipes_ajax.php');
+  }
+
+
   public function Joueurs()
   {
       $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');

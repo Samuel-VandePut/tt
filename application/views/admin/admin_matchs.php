@@ -26,6 +26,8 @@
                     <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>   
                   </div>
                 </div>
+                <div class="alert" id="alert">
+                </div>
               <table id="table_matchs" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr>
@@ -48,6 +50,7 @@
                       <th>Prenom</th>
                       <th>Victoire</th>
                       <th>Défaite</th>
+                    </tr>
                 </tfoot>
               </table>
               <br>
@@ -55,33 +58,6 @@
             </div>
             <!-- Pools Tables -->
             
-            <div id="files" class="col-md-6 col-xs-6 float-right">
-              <div class="clear-fix">
-                <div class="float-left">
-                  <h2>Fichiers</h2>
-                </div>
-                <div class="float-right clear-fix">  
-                  <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>
-                </div>
-              </div>
-              <table id="table_files" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                      <th>N°</th>
-                      <th>Nom</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-     
-                <tfoot>
-                  <tr>
-                      <th>N°</th>
-                      <th>Nom</th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
         </div>  
       </div>
           
@@ -125,8 +101,6 @@
                         <div class="col-md-4">
                         </div>
                       </form>
-                      <div class="alert" id="alert">
-                      </div>
                     </div>
                     <!-- /Form Upload matchs -->
                   </div>
