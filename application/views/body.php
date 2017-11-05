@@ -9,7 +9,14 @@
 
         <!-- Blog Entries Column -->
         <div class="col-md-8">
+        <br>
+                  <?php
+                   if(isset($er)=="no"){
 
+                          echo'<div class="alert alert-danger" role="alert">Erreur : Connexion refusée, Login ou mot de passe incorrect. </div>';
+
+                     }
+                  ?>
           <h1 class="my-4 text-primary">
                  Bienvenue sur notre site
           </h1>

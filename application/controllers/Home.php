@@ -76,12 +76,20 @@ class Home extends CI_Controller {
           case 5: //show club admin page
           $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');
           break;
+          default:
+          $error['er']="no";
+          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('body.php', $error)->view('includes/footer.inc.php');
+          
         }
       }
       else
       {      
-        $erreur['Erm']='ok';
-        $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('body',$erreur)->view('includes/footer.inc.php');
+        //$erreur['Erm']='ok';
+       /// $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('body',$erreur)->view('includes/footer.inc.php');
+          $error['er']="no";
+        
+           $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('body.php', $error)->view('includes/footer.inc.php');
+                
       }
     }
   }
