@@ -117,7 +117,7 @@
                     </form>
                   </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnSave" onclick="login()" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="btnSave" form="log" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-danger" onclick="hide()" data-dismiss="modal">Cancel</button>
                 </div>
             </div><!-- /.modal-content -->

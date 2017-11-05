@@ -49,7 +49,7 @@
 
     });
 
-    var bouncingBall = anime({
+    /*var bouncingBall = anime({
         targets: '.ball',
         translateY: '50vh',
         duration: 300,
@@ -61,15 +61,9 @@
             duration: 150,
             delay: 268
         }
-    });
+    });*/
 
     var base_url = '<?php echo base_url();?>';
-
-    function login()//load Home/login/parameter1/parameter2
-    {
-        $('#form').submit();
-    }
-
 
     function hide()
     {
