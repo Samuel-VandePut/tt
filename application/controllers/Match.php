@@ -58,6 +58,26 @@ class Match extends CI_Controller {
       echo json_encode($output);
   }
 
+
+  public function ajax_add()
+  {
+      //$this->_validate();
+      $data = json_decode($_POST['json']);
+
+      //compter les match par joueur
+
+      //ajouter les matchs  
+      $this->load->model('match_model','match');
+      $datas = array(
+              'FK_rencontre' => $rencontre->id_rencontre,
+              'victoire' => $match['victoire'],
+              'defaite' => $match['defaite']
+          );
+
+      $id = $this->match->save_batch($data);
+
+  }
+
   public function ajax_delete($id)
   {
       //Check if match contain images

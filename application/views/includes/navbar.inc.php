@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Accueil
+              <a class="nav-link" href="<?php echo base_url();?>Home">Accueil
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -21,9 +21,24 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">Se connecter</a>
-            </li>
+            <?php 
+              if(isset($_SESSION['Niveau']))
+              {
+                echo '
+                <li class="nav-item">
+                  <a class="nav-link" href="'.base_url().'Home/Page_perso">Ma page</a>
+                </li>';
+                if($_SESSION['Niveau'] == 5)
+                {
+                  echo'<li class="nav-item">
+                    <a class="nav-link" href="'.base_url().'Home/Admin">Admin</a>
+                  </li>';
+                }
+                echo'<li class="nav-item">
+                  <a class="nav-link" href="'.base_url().'Home/Logout">Se déconnecter</a>
+                </li>'; 
+              }
+            ?>
           </ul>
         </div>
       </div>

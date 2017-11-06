@@ -47,6 +47,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h3 class="modal-title">Ajouter un joueur</h3>
                 </div>
+
+                <div class="alert alert-danger" id="alert-modal">
+                  <p class="text-center"><strong>L'équipe est pleine</strong></p>
+                </div>
                 <div class="modal-body form">
                   <!-- Form add interclub -->
                     <div class="container-fluid">

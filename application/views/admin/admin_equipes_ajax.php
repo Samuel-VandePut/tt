@@ -42,13 +42,22 @@ $(document).ready(function() {
     });
 
     table_reserve.on('click', 'tbody tr' ,function() {
-        var $row = $(this);
-        var addRow = table_reserve.row($row);
         var id_table = $("input[id=id_table]").val();
         table = $("#"+id_table).DataTable();
-        table.row.add(addRow.data()).draw();
-        addRow.remove().draw();
-        $("#reserve-modal").modal('hide');
+        //count rows in table
+        //if rows == 4 do nothing
+        if(table.rows().count() < 4)
+        {
+            var $row = $(this);
+            var addRow = table_reserve.row($row);
+            table.row.add(addRow.data()).draw();
+            addRow.remove().draw();
+            $("#reserve-modal").modal('hide');
+        }
+        else
+        {
+            $('#alert-modal').show();
+        }
     });
 
     get_interclubs(function(interclub_data){
@@ -145,6 +154,7 @@ function tableToObj(tableId)
 function select_joueur(id_table)
 {
     $("input[id=id_table]").attr('value',id_table);
+    $('#alert-modal').hide();
     $("#reserve-modal").modal();
 }
 

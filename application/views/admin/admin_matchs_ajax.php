@@ -32,6 +32,38 @@ $(document).ready(function() {
         data: ''
     });
     
+    $('#apply_matchs').on('click', function(){
+        var obj = tableToObj();
+        
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo site_url('Match/ajax_add')?>",
+            data: {json: JSON.stringify(obj) },
+            dataType: 'json',
+            success: function(data)
+            {
+                if(data.status) 
+                {
+                    $('#alert').empty();
+                    $("#alert").removeClass('alert-danger');
+                    $("#alert").addClass('alert-success');
+                    $("#alert").append('<p class="text-center"><strong>Les matchs ont étés ajoutés avec succès</strong></p>');
+                    $("#alert").show();
+                }                    
+                else
+                {
+                    $('#alert').empty();
+                    $("#alert").addClass('alert-danger');
+                    $("#alert").append('<p class="text-center"><strong>Les matchs n\'ont pas étés ajoutés</strong></p>'); 
+                    $("#alert").show();   
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                return null;
+            }
+        });
+    });
 });
  
 function reload_table()
@@ -100,6 +132,25 @@ function upload()
         });
     }
     $("#upload-modal").modal('hide'); 
+}
+
+function tableToObj()
+{
+    // Loop through grabbing everything
+    var myRows = [];
+    var $headers = $("th");
+    var $rows = $("#table_matchs tbody tr").each(function(index) {
+      $cells = $(this).find("td");
+      myRows[index] = {};
+      $cells.each(function(cellIndex) {
+      myRows[index][$($headers[cellIndex]).html()] = $(this).html();        
+      });    
+    });
+
+    // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
+    var myObj = {};
+    myObj.matchs = myRows;
+    return myObj;
 }
 
 function show_modal()

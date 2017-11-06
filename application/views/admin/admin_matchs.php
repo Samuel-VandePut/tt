@@ -22,8 +22,7 @@
                     <h2>Matchs ajoutés</h2>
                   </div>
                   <div class="float-right clear-fix">  
-                    <button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter des matchs</button> 
-                    <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>   
+                    <button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter des matchs</button>  
                   </div>
                 </div>
                 <div class="alert" id="alert">
@@ -54,7 +53,7 @@
                 </tfoot>
               </table>
               <br>
-                    <button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter des matchs</button> 
+                    <button class="btn btn-default" id="apply_matchs"><i class="glyphicon glyphicon-check"></i>Appliquer</button> 
             </div>
             <!-- Pools Tables -->
             

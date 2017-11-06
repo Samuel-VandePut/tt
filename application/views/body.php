@@ -10,13 +10,6 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
         <br>
-                  <?php
-                   if(isset($er)=="no"){
-
-                          echo'<div class="alert alert-danger" role="alert">Erreur : Connexion refusée, Login ou mot de passe incorrect. </div>';
-
-                     }
-                  ?>
           <h1 class="my-4 text-primary">
                  Bienvenue sur notre site
           </h1>
@@ -52,7 +45,44 @@
             </div>
           </div>
 
-          <!-- Categories Widget -->
+          
+          <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Se connecter</h5>
+            <div class="card-body">
+                <div class="col-sm-12">
+                  <?php
+                   if(isset($er)=="no"){
+                          echo'<div class="alert alert-danger" role="alert">Erreur : Connexion refusée, Login ou mot de passe incorrect. </div>';
+                     }
+                  ?>
+                  </div>
+                   <form action="<?php echo site_url('Home/login'); ?>" method="POST" id="log" class="form-horizontal">                          
+                        <div class="form-body">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input name="login" placeholder="Votre login" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input name="password" placeholder="Votre mot de passe" class="form-control" type="password">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                              <div class="col-sm-12">
+                                  <button type="submit" name="btn" value="true" class="btn btn-primary btn-block" form="log">Login</button>
+                              </div>
+                        </div>
+
+                    </form>
+
+               </div>
+            </div>
+            <!-- Categories Widget -->
           <div class="card my-4">
             <h5 class="card-header">Suivez nous sur...</h5>
             <div class="card-body">
@@ -70,12 +100,6 @@
                 </div>
               </div>
             </div>
-          <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Machs en vue</h5>
-            <div class="card-body">
-                
-            </div>
           </div>
 
         </div>
@@ -85,44 +109,3 @@
 
     </div>
     <!-- /.container -->
-
-
-    
-    <!-- Bootstrap modal -->
-    <div class="modal fade" id="login-modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title">Login</h3>
-                </div>
-                <div class="modal-body form">
-                    <form action="<?php echo site_url('Home/login'); ?>" method="POST" id="log" class="form-horizontal">                          
-                        <div class="form-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Login</label>
-                                <div class="col-md-9">
-                                    <input name="login" placeholder="Login" class="form-control" type="text">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Password</label>
-                                <div class="col-md-9">
-                                    <input name="password" placeholder="Mot de passe" class="form-control" type="password">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                  </div>
-                <div class="modal-footer">
-                    <button type="submit" id="btnSave" form="log" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-danger" onclick="hide()" data-dismiss="modal">Cancel</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <!-- End Bootstrap modal -->
-
-

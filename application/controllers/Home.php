@@ -22,6 +22,7 @@ class Home extends CI_Controller {
   function __construct() {
     parent::__construct();
     $this->load->library('layout');
+    $this->load->library('session');
   }
 
   public function index()
@@ -41,46 +42,20 @@ class Home extends CI_Controller {
       {
         foreach ($users as $user)
         {
-         session_start();//Démarrer la session
+         //session_start();//Démarrer la session
          //Initier $_SESSION
-         $_SESSION['connect'] = array(
+         //$_SESSION['connect'] = array(
+         $connect = array(
               'Nom' => $user->nom,
               'Prenom'  => $user->prenom,
               'Niveau'  => $user->niveau,
               'Id_jou'  => $user->id_joueur
               );
+         $this->session->set_userdata($connect);
         }
-
-        switch($_SESSION['connect']['Niveau'])
-        {
-          case 1: //show player page
-
-          $this->load->model('joueur_model');//charger le modèle joueur
-          $joueur['recup_dv'] = $this->joueur_model->get_joueurs_info($_SESSION['connect']['Id_jou']);
-          $joueur_t['total_j'] = $this->joueur_model->get_joueurs_match($_SESSION['connect']['Id_jou']);
-          $joueur['recup_total'] = $this->joueur_model->total_match($_SESSION['connect']['Id_jou']);
-          $joueur['def'] = $this->joueur_model->total_match_def($_SESSION['connect']['Id_jou']);
-          $joueur['vict'] = $this->joueur_model->total_match_victoire($_SESSION['connect']['Id_jou']);
+        //var_dump($_SESSION);die();
+        $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('body.php')->view('includes/footer.inc.php');
          
-          $data=array();
-          $data['victoire'] = $joueur['vict'];
-          $data['defaite'] = $joueur['def'];
-          $data['joueur'] = $joueur['recup_dv'];
-          $data['T_match'] = $joueur['recup_total'];
-          $data['total'] = $joueur_t['total_j'];
-          $data['nom'] = $_SESSION['connect']['Nom'];
-          $data['prenom'] = $_SESSION['connect']['Prenom'];
-
-          $this->layout->views('includes/header.inc.php')->views('includes/navbar_perso.inc.php')->views('page_perso.php',$data)->view('includes/footer.inc.php');
-          break;
-          case 5: //show club admin page
-          $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');
-          break;
-          default:
-          $error['er']="no";
-          $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('body.php', $error)->view('includes/footer.inc.php');
-          
-        }
       }
       else
       {      
@@ -94,12 +69,44 @@ class Home extends CI_Controller {
     }
   }
 
+  public function Page_perso()
+  {   
+      $this->load->model('joueur_model');//charger le modèle joueur
+      $joueur['recup_dv'] = $this->joueur_model->get_joueurs_info($_SESSION['Id_jou']);
+      $joueur_t['total_j'] = $this->joueur_model->get_joueurs_match($_SESSION['Id_jou']);
+      $joueur['recup_total'] = $this->joueur_model->total_match($_SESSION['Id_jou']);
+      $joueur['def'] = $this->joueur_model->total_match_def($_SESSION['Id_jou']);
+      $joueur['vict'] = $this->joueur_model->total_match_victoire($_SESSION['Id_jou']);
+     
+      $data=array();
+      $data['victoire'] = $joueur['vict'];
+      $data['defaite'] = $joueur['def'];
+      $data['joueur'] = $joueur['recup_dv'];
+      $data['T_match'] = $joueur['recup_total'];
+      $data['total'] = $joueur_t['total_j'];
+      $data['nom'] = $_SESSION['Nom'];
+      $data['prenom'] = $_SESSION['Prenom'];
+
+      $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php')->views('page_perso.php',$data)->view('includes/footer.inc.php');
+    
+  }
+
   public function Logout()
   {
-      $this->load->library('session');
-      $this->session->unset_userdata('connect');
-      session_destroy();
+      //$this->session->unset_userdata('connect');
+      $this->session->sess_destroy();
+      //session_destroy();
+      //session_regenerate_id();
+      /*foreach($_SESSION as $k => $v) 
+      {
+        unset($_SESSION[$k]);
+      }*/
       redirect('/home/', 'refresh');
+  }
+
+  public function Admin()
+  {
+    $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php')->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');      
   }
 
   public function Interclubs()
@@ -160,13 +167,16 @@ class Home extends CI_Controller {
 
           //Lire le fichier csv
           $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
+
+          //Créer une liste des matchs
+
           foreach($csvData as $match)//lire ligne par ligne
           {
             //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
             $this->load->model('joueur_model','joueur');
             $joueur = $this->joueur->get_by_name($match['nom'],$match['prenom']);
 
-            //récupérer id_interclub si il existe, sinon créer l'interclub
+            //récupérer id_interclub si il existe
             $this->load->model('interclub_model','interclub');
             $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match['date'])));
             //Si l'interclub n'existe pas => renvoyer une erreur
@@ -183,16 +193,6 @@ class Home extends CI_Controller {
               $status['error'] = 'Les équipes pour cet interclub n\'ont pas été créées';
               break;
             }
-
-            //ajouter les matchs            
-            $this->load->model('match_model','match');
-            $data = array(
-                    'FK_rencontre' => $rencontre->id_rencontre,
-                    'victoire' => $match['victoire'],
-                    'defaite' => $match['defaite']
-                );
-
-            $id = $this->match->save($data);
 
             //Créer liste des matchs pour datatable
             $row = array();

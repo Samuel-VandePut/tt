@@ -7,6 +7,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url();?>Home">Accueil</a>
+            </li>
             <li class="nav-item active">
               <a class="nav-link" href="<?php echo base_url();?>Home/Joueurs">Joueurs
                 <span class="sr-only">(current)</span>
