@@ -22,7 +22,8 @@
                     <h2>Matchs ajoutés</h2>
                   </div>
                   <div class="float-right clear-fix">  
-                    <button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter des matchs</button>  
+                    <!--button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Télécharger des matchs</button--> 
+                    <input id="file" name="fichierCSV" type="file"> 
                   </div>
                 </div>
                 <div class="alert" id="alert">
@@ -30,7 +31,6 @@
               <table id="table_matchs" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr>
-                      <th>N°</th>
                       <th>Date</th>
                       <th>Nom</th>
                       <th>Prenom</th>
@@ -43,7 +43,6 @@
      
                 <tfoot>
                   <tr>
-                      <th>N°</th>
                       <th>Date</th>
                       <th>Nom</th>
                       <th>Prenom</th>
@@ -77,7 +76,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title">Ajouter des matchs</h3>
+                    <h3 class="modal-title">Télécharger des matchs</h3>
                 </div>
                 <div class="modal-body form">
                   <!-- Form Upload matchs -->
@@ -93,7 +92,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-8">
-                                <input name="fichierCSV" type="file">
+                                <input id="file" name="fichierCSV" type="file">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -104,7 +103,7 @@
                     <!-- /Form Upload matchs -->
                   </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnUpload" onclick="upload()" class="btn btn-primary">Ajouter</button>
+                    <button type="button" id="btnUpload" onclick="readFile()" class="btn btn-primary">Télécharger</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

@@ -5,7 +5,8 @@ var table;
 var base_url = '<?php echo base_url();?>';
 
 $(document).ready(function() {
- 
+
+
     $('#alert').hide(); 
     //datatables
     /*table = $('#table_files').DataTable({ 
@@ -26,9 +27,31 @@ $(document).ready(function() {
         ],
  
     });*/
+ 
+
 
     table = $('#table_matchs').DataTable({
+
+        columns: [{
+            "title": "Date",
+            "data": "date"
+        }, {
+            "title": "Nom",
+            "data": "nom"
+        }, {
+            "title": "Prenom",
+            "data": "prenom"
+        }, {
+            "title": "Victoire",
+            "data": "victoire"
+        }, {
+            "title": "Defaite",
+            "data": "defaite"
+        }],
         "responsive": true,
+        "bFilter": false,
+        "paging":   false,
+        "ordering": false,
         data: ''
     });
     
@@ -64,6 +87,19 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#file").on("change", function(evt) {
+        var f = evt.target.files[0];
+        if (f) {
+            var r = new FileReader();
+            r.onload = function(e) {
+                table.rows.add($.csv.toObjects(e.target.result)).draw();
+            }
+            r.readAsText(f);
+        } else {
+            alert("Failed to load file");
+        }
+    });
 });
  
 function reload_table()
@@ -78,59 +114,62 @@ function hide()
 
 function upload()
 {
-    if(confirm('Etes-vous sur d\'ajouter les matchs?'))
-    {
-        $('#btnUpload').text('en cours...'); //change button text
-        $('#btnUpload').attr('disabled',true); //set button disable 
-        $('#alert').empty();
+    //if(confirm('Etes-vous sur d\'ajouter les matchs?'))
+    //{
+    $('#btnUpload').text('en cours...'); //change button text
+    $('#btnUpload').attr('disabled',true); //set button disable 
+    $('#alert').empty();
 
-        var formData = new FormData($('#form-upload')[0]);
-        $.ajax({
-            url : "<?php echo site_url('Home/ajax_upload')?>",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            dataType: "JSON",
-            success: function(data)
-            {
+    var formData = new FormData($('#form-upload')[0]);
+    $.ajax({
+        url : "<?php echo site_url('Home/ajax_upload')?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
 
-                $("#table_matchs").DataTable().destroy(); //détruire la table avant de la repeupler
-                //datatables
-                table = $('#table_matchs').DataTable({ 
-             
-                    "responsive": true,
-                    // Load data for the table's content from an Ajax source
-                    data: data.matchs
-                });
-     
-                if(!data.status['error']) //if success close modal and reload ajax table
-                {
-                    $('#alert').addClass('alert-success');
-                    $('#alert').append('<p class="text-center"><strong>Félicitation !</strong> Votre fichier a bien été ajouté</p>');
-                    $('#alert').show();
-                }
-                else
-                {
-                    $('#alert').addClass('alert-danger');
-                    $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
-                    $('#alert').show();         
-                }
-                $('#btnUpload').text('Ajouter'); //change button text
-                $('#btnUpload').attr('disabled',false); //set button enable 
-            },
-            error: function (jqXHR, textStatus, errorThrown)
+            $("#table_matchs").DataTable().destroy(); //détruire la table avant de la repeupler
+            //datatables
+            table = $('#table_matchs').DataTable({ 
+         
+                "responsive": true,
+                "bFilter": false,
+                "paging":   false,
+                "ordering": false,
+                // Load data for the table's content from an Ajax source
+                data: data.matchs
+            });
+ 
+            if(!data.status['error']) //if success close modal and reload ajax table
             {
-                alert('Error adding / update data');
+                $('#alert').addClass('alert-success');
+                $('#alert').append('<p class="text-center"><strong>Félicitation !</strong> Votre fichier a bien été ajouté</p>');
+                $('#alert').show();
+            }
+            else
+            {
                 $('#alert').addClass('alert-danger');
                 $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
-                $('#alert').show();           
-                $('#btnUpload').text('Ajouter'); //change button text
-                $('#btnUpload').attr('disabled',false); //set button enable 
-     
+                $('#alert').show();         
             }
-        });
-    }
+            $('#btnUpload').text('Ajouter'); //change button text
+            $('#btnUpload').attr('disabled',false); //set button enable 
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#alert').addClass('alert-danger');
+            $('#alert').append('<p class="text-center"><strong>Désolé.</strong>'+errorThrown+' Erreur lors du téléchargement des données</p>');
+            $('#alert').show();           
+            $('#btnUpload').text('Ajouter'); //change button text
+            $('#btnUpload').attr('disabled',false); //set button enable 
+ 
+        }
+    });
+    //}
     $("#upload-modal").modal('hide'); 
 }
 
@@ -152,6 +191,8 @@ function tableToObj()
     myObj.matchs = myRows;
     return myObj;
 }
+
+
 
 function show_modal()
 {

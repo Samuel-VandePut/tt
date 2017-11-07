@@ -156,54 +156,46 @@ class Home extends CI_Controller {
       $matchs = array();
       if(!empty($_FILES['fichierCSV']['name']))//SI un fichier a été sélectionné
       {
-        if(file_exists('assets/files/'.$_FILES['fichierCSV']['name']))//Si le fichier existe déjà 
+        $upload = $this->_do_upload();
+        $status['match'] = $upload;
+
+        //Lire le fichier csv
+        $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
+
+        //Créer une liste des matchs
+
+        foreach($csvData as $match)//lire ligne par ligne
         {
-          $status['error'] = 'Le nom du fichier existe déjà';
-        }
-        else
-        {
-          $upload = $this->_do_upload();
-          $status['match'] = $upload;
+          //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
+          $this->load->model('joueur_model','joueur');
+          $joueur = $this->joueur->get_by_name($match['nom'],$match['prenom']);
 
-          //Lire le fichier csv
-          $csvData = $this->readExcel('assets/files/'.$_FILES['fichierCSV']['name']);
-
-          //Créer une liste des matchs
-
-          foreach($csvData as $match)//lire ligne par ligne
+          //récupérer id_interclub si il existe
+          $this->load->model('interclub_model','interclub');
+          $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match['date'])));
+          //Si l'interclub n'existe pas => renvoyer une erreur
+          if($interclub == null)
           {
-            //récupérer id rencontre et id joueur avec date, nom et prenom du joueur      
-            $this->load->model('joueur_model','joueur');
-            $joueur = $this->joueur->get_by_name($match['nom'],$match['prenom']);
-
-            //récupérer id_interclub si il existe
-            $this->load->model('interclub_model','interclub');
-            $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match['date'])));
-            //Si l'interclub n'existe pas => renvoyer une erreur
-            if($interclub == null)
-            {
-              $status['error'] = 'L\'interclub pour cette date n\'existe pas';
-              break;
-            } 
-            $this->load->model('rencontre_model','rencontre');
-            $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
-            //Si la rencontre n'existe pas => renvoyer une erreur
-            if($rencontre == null) 
-            {
-              $status['error'] = 'Les équipes pour cet interclub n\'ont pas été créées';
-              break;
-            }
-
-            //Créer liste des matchs pour datatable
-            $row = array();
-            $row[] = $id;
-            $row[] = $match['date'];
-            $row[] = $match['nom'];
-            $row[] = $match['prenom'];
-            $row[] = $match['victoire'];
-            $row[] = $match['defaite'];
-            $matchs[] = $row;  
+            $status['error'] = 'L\'interclub pour cette date n\'existe pas';
+            break;
+          } 
+          $this->load->model('rencontre_model','rencontre');
+          $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
+          //Si la rencontre n'existe pas => renvoyer une erreur
+          if($rencontre == null) 
+          {
+            $status['error'] = 'Les équipes pour cet interclub n\'ont pas été créées ou les joueurs ne correspondent pas';
+            break;
           }
+
+          //Créer liste des matchs pour datatable
+          $row = array();
+          $row[] = $match['date'];
+          $row[] = $match['nom'];
+          $row[] = $match['prenom'];
+          $row[] = $match['victoire'];
+          $row[] = $match['defaite'];
+          $matchs[] = $row;  
         }
       }//sinon gérer l'erreur
       else
@@ -221,6 +213,7 @@ class Home extends CI_Controller {
       $config['max_size']             = 500; //set max size allowed in Kilobyte
       $config['max_width']            = 1000; // set max width image allowed
       $config['max_height']           = 1000; // set max height allowed
+      $config['overwrite']            = TRUE;
       //$config['file_name']            = round(microtime(true) * 1000); //just milisecond timestamp fot unique name
 
       $this->load->library('upload', $config);
