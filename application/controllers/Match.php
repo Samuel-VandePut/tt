@@ -63,63 +63,51 @@ class Match extends CI_Controller {
   {
       //$this->_validate();
       $data = json_decode($_POST['json']);
-
-      //compter les match par joueur
-
-      //ajouter les matchs  
-      $this->load->model('match_model','match');
-      $datas = array(
-              'FK_rencontre' => $rencontre->id_rencontre,
-              'victoire' => $match['victoire'],
-              'defaite' => $match['defaite']
-          );
-
-      $id = $this->match->save_batch($data);
-
-  }
-
-  public function ajax_delete($id)
-  {
-      //Check if match contain images
-      $this->load->model('match_img_model','match_img');
-      $result = $this->match_img->get_by_match_id($id);
-      if(count($result) > 0)//delete images linked to realisation before deleting realisation 
+      //ajouter les matchs
+      $matchs = array();
+      $id = array();  
+      foreach($data as $joueur)
       {
-        foreach ($result as $img)
+        foreach($joueur as $match)
         {
-          $this->match_img->delete_by_id($img->FK_images,$id);
+          //récupérer id rencontre et id joueur avec date, nom et prenom du joueur 
+          $this->load->model('joueur_model','joueur');
+          $joueur = $this->joueur->get_by_name($match->Nom,$match->Prenom);
+
+          //récupérer id_interclub si il existe
+          $this->load->model('interclub_model','interclub');
+          $interclub = $this->interclub->get_by_date(date('Y-m-j',strtotime($match->Date)));
+
+          //Si l'interclub n'existe pas => renvoyer une erreur
+          if($interclub == null)
+          {
+            $status['error'] = 'L\'interclub pour cette date n\'existe pas';
+            break 2;
+          } 
+
+          $this->load->model('rencontre_model','rencontre');
+          $rencontre = $this->rencontre->get_by_joueur_interclub($joueur->id_joueur,$interclub->id_interclub);
+          //Si la rencontre n'existe pas => renvoyer une erreur
+          if($rencontre == null) 
+          {
+            $status['error'] = 'Les équipes pour cet interclub n\'ont pas été créées ou les joueurs ne correspondent pas';
+            break 2;
+          }
+
+          $row = array(
+                'FK_rencontre' => $rencontre->id_rencontre,
+                'victoire' => $match->Victoire,
+                'defaite' => $match->Defaite
+            );
+          $matchs[] = $row;
         }
-      }//delete realisation
-      $this->match->delete_by_id($id);
-      echo json_encode(array("status" => TRUE));
-  }
+      //var_dump($matchs);die();
 
-  private function _validate()
-  {
-      $data = array();
-      $data['error_string'] = array();
-      $data['inputerror'] = array();
-      $data['status'] = TRUE;
-
-      if($this->input->post('name') == '')
-      {
-          $data['inputerror'][] = 'name';
-          $data['error_string'][] = 'name est requis';
-          $data['status'] = FALSE;
+        $this->load->model('match_model','match');
+        $id[] = $this->match->save_batch($matchs);
+      
       }
-
-      if($this->input->post('description') == '')
-      {
-          $data['inputerror'][] = 'description';
-          $data['error_string'][] = 'description est requis';
-          $data['status'] = FALSE;
-      }
-
-      if($data['status'] === FALSE)
-      {
-          echo json_encode($data);
-          exit();
-      }
+      echo json_encode(array("status" => $status, 'matchs' => $id));
   }
 
   public function ajax_get_matchs()
@@ -127,12 +115,6 @@ class Match extends CI_Controller {
       //Select all matchs
       $matchs = $this->match->get_matchs();
       echo json_encode(array("status" => TRUE, "matchs" => $matchs));
-  }
-
-  public function ajax_generate_teams()
-  {
-      $matchs = $this->match->get_matchs_dispo();
-      //foreach()
   }
 
   

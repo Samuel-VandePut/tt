@@ -195,19 +195,6 @@ public function get_joueurs_match($id_joueur)
 
   public function total_match_def($id_joueur)
   {
-    /*$this->db->select('victoire');  
-    $this->db->from($this->table);
-    $this->db->join('rencontre', 'joueurs.id_joueur= rencontre.FK_joueur');
-    $this->db->join('match', 'rencontre.id_rencontre = match.FK_rencontre');
-    $this->db->where('joueurs.id_joueur',$id_joueur);
-    $this->db->where('match.victoire',NULL);/*/
-    //$query = $this->db->get();
-    
-    //SELECT * FROM `interclub` inner join rencontre on 
-    //id_interclub = FK_interclub inner join `match` on id_rencontre=FK_rencontre WHERE FK_joueur=22 and victoire is not null
-
-    // return $query->num_rows(); 
-
      $this->db->select('victoire');
      $this->db->from('interclub');
      $this->db->join('rencontre', 'rencontre.FK_interclub= interclub.id_interclub');
@@ -216,10 +203,8 @@ public function get_joueurs_match($id_joueur)
      $this->db->where('match.victoire','');
      $query = $this->db->get();
 
-     return $query->num_rows(); 
-     
-        
-    }
+     return $query->num_rows();         
+  }
 
   public function total_match_victoire($id_joueur)
   {
@@ -235,8 +220,7 @@ public function get_joueurs_match($id_joueur)
 
     return $query->num_rows();
       
-
-    }
+  }
 
   public function total_match($id_joueur)
   {
@@ -248,9 +232,8 @@ public function get_joueurs_match($id_joueur)
     $this->db->where('joueurs.id_joueur',$id_joueur);
     $query = $this->db->get();
 
-     return $query->num_rows(); 
-        
-    }
+     return $query->num_rows();       
+  }
 
 }
 

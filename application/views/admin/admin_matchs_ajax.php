@@ -6,29 +6,7 @@ var base_url = '<?php echo base_url();?>';
 
 $(document).ready(function() {
 
-
-    $('#alert').hide(); 
-    //datatables
-    /*table = $('#table_files').DataTable({ 
- 
-        "processing": true, //Feature control the processing indicator.
-        "serverSide": true, //Feature control DataTables' server-side processing mode.
-        "order": [], //Initial no order.
-        "responsive": true,
- 
-        // Load data for the table's content from an Ajax source
-        "ajax": {
-            "url": "<?php //echo site_url('Home/filesList')?>",
-            "type": "POST"
-        },
- 
-        //Set column definition initialisation properties.
-        "columnDefs": [      
-        ],
- 
-    });*/
- 
-
+    $('#alert').hide();
 
     table = $('#table_matchs').DataTable({
 
@@ -55,31 +33,36 @@ $(document).ready(function() {
         data: ''
     });
     
+    //Lors du clic sur bouton apply, ajouter les matchs dans la DB
     $('#apply_matchs').on('click', function(){
         var obj = tableToObj();
-        
+        //trier les matchs par nom
+        obj.rows.sort(function(a,b) {return (a.Nom > b.Nom) ? 1 : ((b.Nom > a.Nom) ? -1 : 0);} );
+        //Trier les matchs par joueurs
+        var result = get_joueurs_matchs(obj);
         $.ajax({
             type: 'POST',
             url: "<?php echo site_url('Match/ajax_add')?>",
-            data: {json: JSON.stringify(obj) },
+            data: {json: JSON.stringify(result) },
             dataType: 'json',
             success: function(data)
             {
                 if(data.status) 
                 {
                     $('#alert').empty();
+                    $("#alert").addClass('alert-danger');
+                    $("#alert").append('<p class="text-center"><strong>'+data.status.error+'</strong></p>'); 
+                    $("#alert").show();  
+                }                    
+                else
+                { 
+                    $('#alert').empty();
                     $("#alert").removeClass('alert-danger');
                     $("#alert").addClass('alert-success');
                     $("#alert").append('<p class="text-center"><strong>Les matchs ont étés ajoutés avec succès</strong></p>');
                     $("#alert").show();
-                }                    
-                else
-                {
-                    $('#alert').empty();
-                    $("#alert").addClass('alert-danger');
-                    $("#alert").append('<p class="text-center"><strong>Les matchs n\'ont pas étés ajoutés</strong></p>'); 
-                    $("#alert").show();   
-                }
+                } 
+                window.scrollTo(0, 0);
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -88,6 +71,7 @@ $(document).ready(function() {
         });
     });
 
+    //Lorsqu'un fichier a été sélectionné, peupler la table
     $("#file").on("change", function(evt) {
         var f = evt.target.files[0];
         if (f) {
@@ -101,10 +85,29 @@ $(document).ready(function() {
         }
     });
 });
- 
-function reload_table()
+
+//Renvoit un tableau de joueur contenant chacun les matchs appartenant à celui-ci
+function get_joueurs_matchs(obj)
 {
-    //table.ajax.reload(null,false); //reload datatable ajax
+    var joueurs = [];
+    var matchs = [];
+    var temp = obj.rows[0];
+    for (var i = 0; i < obj.rows.length; i++) {
+        if (temp.Nom == obj.rows[i].Nom && temp.Prenom == obj.rows[i].Prenom) {
+            matchs.push(obj.rows[i]);
+        }
+        else
+        {
+            if(matchs.length <= 4) joueurs.push(matchs);
+            else break;
+            matchs = [];
+            matchs.push(obj.rows[i]);
+        }
+
+        temp = obj.rows[i];
+    }
+    joueurs.push(matchs);
+    return joueurs;
 }
 
 function hide()
@@ -112,70 +115,8 @@ function hide()
     $('#modal_form').modal('hide');
 }
 
-function upload()
-{
-    //if(confirm('Etes-vous sur d\'ajouter les matchs?'))
-    //{
-    $('#btnUpload').text('en cours...'); //change button text
-    $('#btnUpload').attr('disabled',true); //set button disable 
-    $('#alert').empty();
-
-    var formData = new FormData($('#form-upload')[0]);
-    $.ajax({
-        url : "<?php echo site_url('Home/ajax_upload')?>",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        dataType: "JSON",
-        success: function(data)
-        {
-
-            $("#table_matchs").DataTable().destroy(); //détruire la table avant de la repeupler
-            //datatables
-            table = $('#table_matchs').DataTable({ 
-         
-                "responsive": true,
-                "bFilter": false,
-                "paging":   false,
-                "ordering": false,
-                // Load data for the table's content from an Ajax source
-                data: data.matchs
-            });
- 
-            if(!data.status['error']) //if success close modal and reload ajax table
-            {
-                $('#alert').addClass('alert-success');
-                $('#alert').append('<p class="text-center"><strong>Félicitation !</strong> Votre fichier a bien été ajouté</p>');
-                $('#alert').show();
-            }
-            else
-            {
-                $('#alert').addClass('alert-danger');
-                $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
-                $('#alert').show();         
-            }
-            $('#btnUpload').text('Ajouter'); //change button text
-            $('#btnUpload').attr('disabled',false); //set button enable 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error adding / update data');
-            $('#alert').addClass('alert-danger');
-            $('#alert').append('<p class="text-center"><strong>Désolé.</strong>'+errorThrown+' Erreur lors du téléchargement des données</p>');
-            $('#alert').show();           
-            $('#btnUpload').text('Ajouter'); //change button text
-            $('#btnUpload').attr('disabled',false); //set button enable 
- 
-        }
-    });
-    //}
-    $("#upload-modal").modal('hide'); 
-}
-
 function tableToObj()
 {
-    // Loop through grabbing everything
     var myRows = [];
     var $headers = $("th");
     var $rows = $("#table_matchs tbody tr").each(function(index) {
@@ -186,39 +127,9 @@ function tableToObj()
       });    
     });
 
-    // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
     var myObj = {};
-    myObj.matchs = myRows;
+    myObj.rows = myRows;
     return myObj;
-}
-
-
-
-function show_modal()
-{
-    $('#alert').empty();
-    $('#alert').removeClass('alert-danger');
-    $('#alert').hide();
-    $.ajax({
-        url : "<?php echo site_url('Home/ajax_interclub')?>",
-        type: "POST",
-        contentType: false,
-        processData: false,
-        dataType: "JSON",
-        success: function(data)
-        {
-            for (i = 0; i < data.interclub.length; i++)
-            {
-                $('#select-interclub').append('<option value="'+data.interclub[i].id_interclub+'">'+data.interclub[i].date+'</option>');
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error adding / update data');
-        }
-    });
-
-    $("#upload-modal").modal(); 
 }
 
 </script>

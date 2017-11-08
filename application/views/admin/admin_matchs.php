@@ -16,14 +16,19 @@
 
           <!-- Pools Tables -->
           <div class="container-fluid clear-fix">
+          <div class ="col-md-6">
+            <h3>Importer des matchs</h3>  
+            <input id="file" name="fichierCSV" type="file"> 
+          </div>
+          <br>
             <div id="csv" class="col-md-6 col-xs-6 float-left">
                 <div class="clear-fix">
                   <div class="float-left">
-                    <h2>Matchs ajoutés</h2>
+                    <h2>Matchs</h2>
                   </div>
                   <div class="float-right clear-fix">  
                     <!--button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Télécharger des matchs</button--> 
-                    <input id="file" name="fichierCSV" type="file"> 
+                    
                   </div>
                 </div>
                 <div class="alert" id="alert">
@@ -52,7 +57,7 @@
                 </tfoot>
               </table>
               <br>
-                    <button class="btn btn-default" id="apply_matchs"><i class="glyphicon glyphicon-check"></i>Appliquer</button> 
+                    <button class="btn btn-primary" id="apply_matchs"><i class="glyphicon glyphicon-check"></i>Appliquer</button> 
             </div>
             <!-- Pools Tables -->
             

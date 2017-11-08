@@ -32,7 +32,6 @@
         $('#form').submit();
     }
 
-
     function hide()
     {
         $('#modal_form').modal('hide');

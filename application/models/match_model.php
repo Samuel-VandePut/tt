@@ -77,7 +77,7 @@ class match_model extends CI_Model{
   public function get_by_id($id)
   {
       $this->db->from($this->table);
-      $this->db->where('id_joueur',$id);
+      $this->db->where('id_match',$id);
       $query = $this->db->get();
 
       return $query->row();
@@ -89,6 +89,12 @@ class match_model extends CI_Model{
       return $this->db->insert_id();
   }
 
+  public function save_batch($data)
+  {
+      $this->db->insert_batch($this->table, $data);
+      return $this->db->insert_id();
+  }
+
   public function update($where, $data)
   {
       $this->db->update($this->table, $data, $where);
@@ -97,17 +103,8 @@ class match_model extends CI_Model{
 
   public function delete_by_id($id)
   {
-      $this->db->where('id_joueur', $id);
+      $this->db->where('id_match', $id);
       $this->db->delete($this->table);
-  }
-
-  public function get_joueurs_dispo()
-  {
-      $this->db->from($this->table);
-      $this->db->where('disponibilite', 1);
-      $query = $this->db->get();
-
-      return $query->row();
   }
 
   public function get_by_rencontre($rencontre)

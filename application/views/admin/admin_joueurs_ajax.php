@@ -5,13 +5,13 @@ var table;
 var base_url = '<?php echo base_url();?>';
 
 $(document).ready(function() {
+
     clear_localStorage();
-    //localStorage.clear();
+
     //datatables
     table = $('#table_pool_3').DataTable({ 
         "bPaginate": false,
         "responsive": true,
-        /*"order": [[ 4, "asc" ]],*/
         // Load data for the table's content from an Ajax source
         "ajax": "<?php echo site_url()?>joueur/ajax_joueurs"
     });
@@ -63,14 +63,11 @@ function generate_team()
     get_joueurs_last_ic(function(data){
         while(joueurs.length > 0)
         {
-            //alert("joueurs : " + joueurs.length);
-            //alert("reserve : " + reserve_reserve.length);
             var groupe = [];
             var reserve = [];
             var ids = [];
             var pool = "";
             var i = 'A';
-            //alert("initialisation variables => pool : " + pool);
             //Créer une liste de joueur de même pool
             var first = joueurs[0]; //On prend le premier joueur de la liste comme variable temporaire
             joueurs.forEach(function(joueur){
@@ -87,21 +84,16 @@ function generate_team()
                 var joueur = joueurs.splice(index, 1); //(index, nbre d'élement à retirer)//Retirer le joueur de la liste joueurs
                 groupe.push.apply(groupe, joueur);
             });
-            //alert("groupe de meme pool" + groupe);
 
     
             if(groupe.length  > 4)
             {
-                //alert("groupe > 4 : " + groupe.length);
                 //*** Générer réserves et avantagés du dernier IC ***//
                 var result = get_advantages(groupe, data.joueurs_last);
                 var advantages = result.advantages;
-                //alert("avantagés : " + advantages.length + " | " + advantages);
                 reserve = reserve.concat(result.reserve);
-                //alert("reserve : " + reserve.length + " | " + reserve);
                 //*** //Générer réserves et avantagés du dernier IC ***//
 
-                //alert("pool : " + pool + " | reserve : " + reserve);
                 //Tant qu'il reste des avantagés, on créer des équipes avec
                 do
                 {
@@ -116,7 +108,6 @@ function generate_team()
                     i = nextChar(i);
                 }while(advantages.length > 0);
 
-                //console.log("reserve : " + reserve.length);
                 while(reserve.length >= 3) // Une fois les avantagés utilisés, on vide les réserves.
                 {
                     //créer une équipe
@@ -124,14 +115,12 @@ function generate_team()
                     var team = result.team;
                     groupe = result.groupe;
                     reserve = result.reserve;
-                    //console.log("creation equipe " + pool + i + " avec réserves:" + team);
                     charge_local_storage(pool, i, team);
                     i = nextChar(i);
                 }
 
                 if(reserve.length > 0) charge_local_storage(pool, "reserve", reserve);
                 //reserve_reserve.push.apply(reserve_reserve, reserve);
-                //console.log("reserve de la reserve : ", reserve_reserve);
             }
             else
             {
@@ -154,27 +143,7 @@ function nextChar(c) {
     return String.fromCharCode(c.charCodeAt(0) + 1);
 }
 
-function show_modal(joueurs,joueurs_reserve) 
-{
-    $("h3.modal-title").text("Equipes");
-    $("#modal_table_effectif").DataTable({
-        "bFilter": false,
-        "paging":   false,
-        "ordering": false,
-        "info":     false,
-        data: joueurs
-    })
-    $("#modal_table_reserve").DataTable({
-        "bFilter": false,
-        "paging":   false,
-        "ordering": false,
-        "info":     false,
-        data: joueurs_reserve
-    })
-
-    $("#equipe-modal").modal(); 
-}
-
+//Retourne une liste de joueur n'ayant pas joué lors du dernier interclub et une liste réserve(les joueurs défavorisés)
 function get_advantages(groupe, joueurs_last)
 {
     var ids = [];
@@ -284,28 +253,13 @@ function create_team(groupe, reserve)
 
 function charge_local_storage(pool, nom, team)
 {
-    //localStorage.removeItem("team" + pool + nom);
     team = JSON.stringify(team);
-
     localStorage.setItem("team" + pool + nom, team);
-    //reserve.push.apply(reserve, localStorage.getItem("reserve"));
-    //localStorage.setItem("reserve",reserve);
 }
 
 function show_page_equipe()
 {
-             /*   for (var i = 0; i < localStorage.length; i++){
-                console.log(localStorage.key(i) + " : " + localStorage.getItem(localStorage.key(i)));
-            }*/
     window.location = "<?php echo site_url('Home/Equipes')?>";
-}
-
-function check_played(result){
-    joueurs.forEach(function(joueur) 
-    {
-        if(result.indexOf(joueur[1]) > -1) alert("il a joué");
-        else alert("il n a pas joué");
-    });
 }
 
 function get_joueurs_last_ic(handleData)

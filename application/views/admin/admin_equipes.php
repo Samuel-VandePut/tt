@@ -23,6 +23,9 @@
             </div>
           </form>
 
+          <div class="col-md-8">
+              <button type="button" id="btnReserve" onclick="show_reserve()" class="btn btn-primary">Consulter les réserves</button>
+          </div>
           <div class="alert" id="alert"></div>
 
       </div>

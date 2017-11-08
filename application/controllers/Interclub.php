@@ -45,7 +45,7 @@ class Interclub extends CI_Controller {
           $row[] = $interclub->date;
 
           //add html for action
-          $row[] = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_interclub('."'".$interclub->id_interclub."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+          $row[] = '<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_interclub('.$interclub->id_interclub.')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
           $data[] = $row;
       }
 
@@ -61,8 +61,8 @@ class Interclub extends CI_Controller {
 
   public function ajax_delete($id)
   {
-      //Check if interclub contain images
-      $this->load->model('rencontre_model','rencontre');
+      //Check if interclub contain rencontres
+      /*$this->load->model('rencontre_model','rencontre');
       $result = $this->rencontre->get_by_interclub_id($id);
       if(count($result) > 0)//delete images linked to realisation before deleting realisation 
       {
@@ -71,37 +71,9 @@ class Interclub extends CI_Controller {
           $this->load->model('rencontre_model','rencontre');
           $this->rencontre->delete_by_id($rencontre->id_rencontre);
         }
-      }//delete realisation
+      }//delete realisation*/
       $this->interclub->delete_by_id($id);
       echo json_encode(array("status" => TRUE));
-  }
-
-  private function _validate()
-  {
-      $data = array();
-      $data['error_string'] = array();
-      $data['inputerror'] = array();
-      $data['status'] = TRUE;
-
-      if($this->input->post('name') == '')
-      {
-          $data['inputerror'][] = 'name';
-          $data['error_string'][] = 'name est requis';
-          $data['status'] = FALSE;
-      }
-
-      if($this->input->post('description') == '')
-      {
-          $data['inputerror'][] = 'description';
-          $data['error_string'][] = 'description est requis';
-          $data['status'] = FALSE;
-      }
-
-      if($data['status'] === FALSE)
-      {
-          echo json_encode($data);
-          exit();
-      }
   }
 
   public function ajax_get_interclubs()
@@ -110,7 +82,6 @@ class Interclub extends CI_Controller {
       $interclubs = $this->interclub->get_interclubs();
       echo json_encode(array("status" => TRUE, "interclubs" => $interclubs));
   }
-
 
   public function ajax_add()
   {            

@@ -22,8 +22,7 @@
                     <h2>Interclubs</h2>
                   </div>
                   <div class="float-right clear-fix">  
-                    <button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter un interclub</button> 
-                    <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>   
+                    <button class="btn btn-primary" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter un interclub</button> 
                   </div>
                 </div>
               <table id="table_interclubs" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -45,7 +44,7 @@
                 </tfoot>
               </table>
               <br>
-                    <button class="btn btn-default" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter un interclub</button> 
+                    <button class="btn btn-primary" onclick="show_modal()"><i class="glyphicon glyphicon-check"></i>Ajouter un interclub</button> 
             </div>
             <!-- Interclubs Tables -->
           

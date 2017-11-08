@@ -49,40 +49,37 @@ function show_modal()
 
 function add_interclub()
 {
-    if(confirm('Etes-vous sur d\'ajouter l\'interclub?'))
-    {
-        var formData = new FormData($('#form-interclub')[0]);
-        $.ajax({
-            url : "<?php echo site_url('Interclub/ajax_add')?>",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            dataType: "JSON",
-            success: function(data)
+    var formData = new FormData($('#form-interclub')[0]);
+    $.ajax({
+        url : "<?php echo site_url('Interclub/ajax_add')?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
+            if(data.status)
             {
-                if(data.status)
-                {
-                    $("#interclub-modal").modal('toggle');
-                    reload_table();
-                } 
+                $("#interclub-modal").modal('toggle');
+                reload_table();
+            } 
 
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-                $('#alert').addClass('alert-danger');
-                $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
-                $('#alert').show();           
-                $('#btnUpload').text('Ajouter'); //change button text
-                $('#btnUpload').attr('disabled',false); //set button enable 
-     
-            }
-        });
-    }
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#alert').addClass('alert-danger');
+            $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
+            $('#alert').show();           
+            $('#btnUpload').text('Ajouter'); //change button text
+            $('#btnUpload').attr('disabled',false); //set button enable 
+ 
+        }
+    });
 }
 
-function delete_interclub($id)
+function delete_interclub(id)
 {
     $.ajax({
             url : "<?php echo site_url('Rencontre/ajax_by_interclub_id/')?>"+ id,
@@ -122,34 +119,6 @@ function delete_interclub($id)
                             }
                         });
                     }  
-                }
-                else
-                {
-                    $.ajax({
-                        url : "<?php echo site_url('Interclub/ajax_delete/')?>"+ id,
-                        type: "POST",
-                        contentType: false,
-                        processData: false,
-                        dataType: "JSON",
-                        success: function(data)
-                        {
-                            if(data.status)
-                            {
-                                reload_table();
-                            } 
-
-                        },
-                        error: function (jqXHR, textStatus, errorThrown)
-                        {
-                            alert('Error adding / update data');
-                            $('#alert').addClass('alert-danger');
-                            $('#alert').append('<p class="text-center"><strong>Désolé.</strong> ' + data.status['error'] + '</p>');
-                            $('#alert').show();           
-                            $('#btnUpload').text('Ajouter'); //change button text
-                            $('#btnUpload').attr('disabled',false); //set button enable 
-                 
-                        }
-                    });
                 }
 
             },

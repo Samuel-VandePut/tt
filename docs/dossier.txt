@@ -1,0 +1,80 @@
+1) Cahier de charges
+---------------------
+
++ Introduction du projet
+
+  Mr Dupont, administrateur d'un club de tennis de table ("La planche à pain"), souhaiterait optimiser la création des équipes pour les interclubs via l'outil informatique.
+  L'application devrait générer des équipes en fonction de 3 critères.  Ensuite, il pourrait effectuer des modifications en fonction de désiderata..
+  Afin d'augmenter l'audience du site web, il souhaiterait également fournir une page pour que les joueurs puissent consulter leurs résultats ainsi qu'un outil de calcul de leur classement virtuel.
+
++ Contexte : 
+
+  -> Enjeux : Qu'est ce que le client(le proprio du site) va gagner? 
+    - Sélection automatique des joueurs pour interclubs
+    - Augmenter audience
+      
+  -> Stratégies : Moyens recherchés pour atteindre le but que représente l'enjeux. Qu'est ce que le développeur va faire?
+    - Développer une base de données joueurs et classement 
+    - Développer une interface administrative afin de d'afficher la sélection de joueurs pour les différentes équipes 
+      (Uniquement 4 joueurs ou propositions d'autres joueurs réserves?)
+      (Si il y a plus de 4 joueurs disponibles?)
+    - Développer une interface privée pour les joueurs contenant (une gestion d'agenda et) un outil de calcul de classement virtuel 
+
+  -> Domaine d'application (Qu'est ce qu'on fait et qu'on ne fait pas)
+    + Sélection de joueurs pour tous types de classement? (FRBTT et FROTTBF?)
+    + Calcul classement virtuel
+    + Consulter résultats
+    ? Gestion d'agenda joueur par le joueur ou admin? 
+    ? Qui rentre les résultats des matchs?
+
++ Objectifs : 
+  - S'inscrire? Qui gère? Comment va se dérouler une inscription de joueur?
+  - Consulter les équipes pour interclub
+  - Consulter le classement (interface joueur)
+  - Modifier disponibilité (interface joueur)?
+
++ Périmètre : 
+
+- L'administration du Club
+- Les joueurs du Club
+- Les personnes désireuses de s'inscrire dans le club
+
++ Vocabulaire :
+
+- Classement virtuel
+- Division
+- Interclub
+- Classement
+- Equipe
+
++ Contraintes :
+
+- Uniquement un utilisateur de niveau administrateur a accès à cette section
+- Uniquement les utilisateurs des niveau joueur ont accès à la partie privée  
+
+
+2) Analyse
+-----------
+
+Diagrammes
+
+3) Sécurité
+------------
+
+Login => Niveau
+password sha1
+Codeigniter
+  - XSS
+  - 
+BackupDB
+
+
+4) Guide d'installation
+------------------------
+
+
+
+5) Annexes
+-----------
+
+fichiers classement virtuel

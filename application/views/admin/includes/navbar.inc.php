@@ -10,19 +10,22 @@
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url();?>Home">Accueil</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item <?php if($page == 'interclubs') echo 'active'; ?>">
+              <a class="nav-link" href="<?php echo base_url();?>Home/Interclubs">Interclubs</a>
+            </li>
+            <li class="nav-item <?php if($page == 'joueurs') echo 'active'; ?>">
               <a class="nav-link" href="<?php echo base_url();?>Home/Joueurs">Joueurs
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?php if($page == 'equipes') echo 'active'; ?>">
               <a class="nav-link" href="<?php echo base_url();?>Home/Equipes">Equipes</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url();?>Home/Interclubs">Interclubs</a>
+            <li class="nav-item <?php if($page == 'matchs') echo 'active'; ?>">
+              <a class="nav-link" href="<?php echo base_url();?>Home/Matchs">Matchs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url();?>Home/Matchs">Matchs</a>
+                 <a class="nav-link" href="<?php echo base_url();?>'Home/backup">Backup de la BD</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url();?>Home/Logout">Se déconnecter</a>

@@ -12,15 +12,22 @@ Samuel
 -> Backend : validation (un joueur joue 4 matchs par interclub)
 -> déplacer les joueurs d'une équipe à l'autre si l'admin en a envie
 
+-> Mise à jour des projets
+-> Créer une fonction calculer le classement virtuel à l'aide de la fonction calcul_points() et du fichier "simulationclasst.pdf"
+->
+
+
+
 ----------
 Ibrahim
 ----------
 
 -> Créer page utilisateur (niveau 1)
 	-> Afficher la liste des matchs joués de l'utilisateur
-	-> Créer une fonction calculer le classement virtuel à l'aide de la fonction calcul_points() et du fichier "simulationclasst.pdf"
-
-
+	
+-> Use cases
+-> Logigramme login
+-> Guide d'installation
 
 
 

@@ -20,6 +20,16 @@ body {
   bottom:   0;
 }
 
+.division {
+  margin-bottom: 50px;
+}
+
+.inline-table{
+  margin:10px 0px;
+  border-width: 1px;
+  border-color: black;
+}
+
 .clear-fix:after {
   content: "";
   display: table;

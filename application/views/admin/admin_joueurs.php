@@ -23,9 +23,8 @@
             <div class="float-left col-md-6"> 
               
             </div>
-            <div class="float-right clear-fix col-md-6">
-              <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Rafraichir</button>  
-              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+            <div class="float-right clear-fix col-md-4"> 
+              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer les équipes</button>    
             </div>
           </div>
           <br>
@@ -56,8 +55,8 @@
               </tfoot>
             </table>
             <br>
-            <div class="col-md-6">
-              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer l'équipe</button>    
+            <div class="col-md-4">
+              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer les équipes</button>    
             </div>
           </div> 
       </div>

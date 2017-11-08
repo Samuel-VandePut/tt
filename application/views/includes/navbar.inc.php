@@ -7,33 +7,35 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item <?php if($page == 'accueil') echo 'active'; ?>">
               <a class="nav-link" href="<?php echo base_url();?>Home">Accueil
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?php if($page == 'apropos') echo 'active'; ?>">
               <a class="nav-link" href="#">A propos</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?php if($page == 'equipe') echo 'active'; ?>">
               <a class="nav-link" href="#">Equipe</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <?php if($page == 'contact') echo 'active'; ?>">
               <a class="nav-link" href="#">Contact</a>
             </li>
             <?php 
               if(isset($_SESSION['Niveau']))
-              {
+              { 
+                $css = '';
+                if($page == 'mapage') $css = ' active';
                 echo '
-                <li class="nav-item">
+                <li class="nav-item'.$css.'">
                   <a class="nav-link" href="'.base_url().'Home/Page_perso">Ma page</a>
                 </li>';
-                if($_SESSION['Niveau'] == 5)
+                /*if($_SESSION['Niveau'] == 5)
                 {
                   echo'<li class="nav-item">
                     <a class="nav-link" href="'.base_url().'Home/Admin">Admin</a>
                   </li>';
-                }
+                }*/
                 echo'<li class="nav-item">
                   <a class="nav-link" href="'.base_url().'Home/Logout">Se déconnecter</a>
                 </li>'; 

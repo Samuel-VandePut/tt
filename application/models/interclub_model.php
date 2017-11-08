@@ -105,7 +105,7 @@ class interclub_model extends CI_Model{
 
   public function delete_by_id($id)
   {
-      $this->db->where('id_joueur', $id);
+      $this->db->where('id_interclub', $id);
       $this->db->delete($this->table);
   }
 
