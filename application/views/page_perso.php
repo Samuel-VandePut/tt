@@ -42,9 +42,12 @@
                                     
                           </tbody>
                     </table>
-
-
-
+                    <br>
+                    <div class="col-md-8">
+                         <button type="button" id="btnClassement" class="btn btn-primary">Classement Virtuel</button>
+                    </div>
+                    <br>
+                    <div id="classement" class="col-md-4"></div>
                     <div class="container"> 
                     <table class="table table-bordered">
                             <thead>

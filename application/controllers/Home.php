@@ -57,6 +57,9 @@ class Home extends CI_Controller {
         //var_dump($_SESSION);die();
         switch($_SESSION['Niveau'])
         {
+          case 1:
+          $this->Page_perso();
+          break;
           case 5:
           $data['page'] = 'joueurs';
           $this->layout->views('admin/includes/header.inc.php')->views('admin/includes/navbar.inc.php',$data)->views('admin/admin_joueurs.php')->views('admin/includes/footer.inc.php')->view('admin/admin_joueurs_ajax.php');  
@@ -99,8 +102,7 @@ class Home extends CI_Controller {
       $data['prenom'] = $_SESSION['Prenom'];
 
       $datas['page'] = 'mapage';
-      $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php',$datas)->views('page_perso.php',$data)->view('includes/footer.inc.php');
-    
+      $this->layout->views('includes/header.inc.php')->views('includes/navbar.inc.php',$datas)->views('page_perso.php',$data)->views('includes/footer.inc.php')->view('page_perso_ajax.php');  
   }
 
   public function Logout()
@@ -167,4 +169,17 @@ class Home extends CI_Controller {
           $this->load->helper('download');
           force_download($db_name, $backup);
   }
+
+  public function classementVirtuel()
+  {
+      $this->load->model('joueur_model');//charger le modèle joueur
+      $def = $this->joueur_model->defaites($_SESSION['Id_jou']);
+      $vict = $this->joueur_model->victoires($_SESSION['Id_jou']);
+      $classement = $this->joueur_model->classement($_SESSION['Id_jou']);
+
+      $this->load->library('classementVirtuel');
+      $classementVirtuel = $this->classementvirtuel->classement_virtuel($classement,$vict,$def);
+      echo json_encode(array("status" => TRUE, "classementVirtuel" => $classementVirtuel));
+  }
+
 }

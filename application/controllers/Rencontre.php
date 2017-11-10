@@ -65,7 +65,7 @@ class Rencontre extends CI_Controller {
 
       //vérifier si il n'existe pas déjà des rencontres pour cet interclub
       $result = $this->rencontre->get_by_interclub_id($data->interclub);
-      
+      var_dump($count($result));die();
       if(count($result) > 0)
       {
         echo json_encode(array("status" => FALSE));

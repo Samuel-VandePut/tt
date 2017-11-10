@@ -24,7 +24,7 @@
               
             </div>
             <div class="float-right clear-fix col-md-4"> 
-              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer les équipes</button>    
+              <button class="btn btn-primary" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer les équipes</button>    
             </div>
           </div>
           <br>
@@ -56,7 +56,7 @@
             </table>
             <br>
             <div class="col-md-4">
-              <button class="btn btn-default" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer les équipes</button>    
+              <button class="btn btn-primary" onclick="generate_team()"><i class="glyphicon glyphicon-check"></i>Générer les équipes</button>    
             </div>
           </div> 
       </div>

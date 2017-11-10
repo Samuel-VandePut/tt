@@ -11,7 +11,11 @@
           </li>
           <li class="breadcrumb-item active">Tennis de table</li>
         </ol>
-
+        <div class="container-fluid">
+          <p>
+            Une fois vos équipes configurées n'oubliez pas de cliquer sur le bouton "Appliquer" tout en bas à droite de cette page.
+          </p>
+        </div>
           <form action="#" id="form-upload" class="form-horizontal">
             <div class="form-group">
               <label class="control-label col-md-8" id="interclub-select">Selectionnez un Interclub</label>
@@ -34,8 +38,8 @@
 
     </div>
     <!-- /.content-wrapper -->
-    <dir class="container-fluid">
-      <button id="apply_teams">Appliquer</button>
+    <dir class="col-md-11" style="position:relative;">
+      <button class="btn btn-primary" id="apply_teams">Appliquer</button>
     </dir>
     <!-- Scroll to Top Button -->
     <a class="scroll-to-top rounded" href="#page-top">

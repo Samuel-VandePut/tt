@@ -11,7 +11,15 @@
           </li>
           <li class="breadcrumb-item active">Tennis de table</li>
         </ol>
-
+        <div class="col-md-8">
+          <h3>Démarche</h3>
+          <p>
+            <ul>
+              <li>Sélectionnez un fichier csv ou xls dans le dossier '/tt/docs/' de l'application</li>
+              <li>Si les données affichées dans le tableau vous conviennes, cliquez sur "Appliquer" en bas de celui-ci pour ajouter les résultats des matchs dans la base de données</li>
+            </ul>
+          </p>
+        </div>
 
 
           <!-- Pools Tables -->

@@ -14,10 +14,20 @@ body {
     }
 }
 
+#poola {
+  margin-left: 10%;
+}
+
 #apply_teams {
   /*position: absolute;*/
-  right:    0;
-  bottom:   0;
+  position: absolute;
+right: 10px;
+top: 5px;
+}
+
+.blue {
+  color: white;
+  background-color: blue;
 }
 
 .division {

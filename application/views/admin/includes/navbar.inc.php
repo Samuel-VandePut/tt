@@ -7,9 +7,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url();?>Home">Accueil</a>
-            </li>
             <li class="nav-item <?php if($page == 'interclubs') echo 'active'; ?>">
               <a class="nav-link" href="<?php echo base_url();?>Home/Interclubs">Interclubs</a>
             </li>
@@ -25,7 +22,7 @@
               <a class="nav-link" href="<?php echo base_url();?>Home/Matchs">Matchs</a>
             </li>
             <li class="nav-item">
-                 <a class="nav-link" href="<?php echo base_url();?>'Home/backup">Backup de la BD</a>
+                 <a class="nav-link" href="<?php echo base_url();?>Home/backup">Backup de la BD</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url();?>Home/Logout">Se déconnecter</a>
